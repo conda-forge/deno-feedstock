@@ -1,4 +1,4 @@
-{% set version = "1.17.0" %}
+{% set version = "1.17.2" %}
 
 package:
   name: deno
@@ -6,7 +6,7 @@ package:
 
 source:
   - url: https://github.com/denoland/deno/releases/download/v{{ version }}/deno_src.tar.gz
-    sha256: b8db666d0a250db9eb69d804a4dbf9c4fd02e4258a2cf6b2287c1b2b16521c71
+    sha256: 15d41a0ffccc5e3de3517a19c50722712651790a5651558ea0042701d7e3aba5
 
 build:
   number: 0
