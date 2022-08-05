@@ -1,4 +1,4 @@
-{% set version = "1.24.0" %}
+{% set version = "1.24.2" %}
 
 package:
   name: deno
@@ -6,7 +6,7 @@ package:
 
 source:
   - url: https://github.com/denoland/deno/releases/download/v{{ version }}/deno_src.tar.gz
-    sha256: 936e776ef4fbc523a303ff8d9e9921fb5918297073807629208bde44cf1e4618
+    sha256: 3135c9fd8f9635f0dffcd22c5eae02222a5c1b549789af01fda683909687b8cb
 
 build:
   number: 0
@@ -28,6 +28,7 @@ requirements:
 test:
   commands:
     - deno --help
+    - deno run https://deno.land/std/examples/welcome.ts
 
 about:
   home: https://deno.land
