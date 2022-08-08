@@ -9,7 +9,7 @@ source:
     sha256: 3135c9fd8f9635f0dffcd22c5eae02222a5c1b549789af01fda683909687b8cb
 
 build:
-  number: 0
+  number: 1
   missing_dso_whitelist:
     # As mentioned below, we fall back to the system compilers on MacOS, because the conda-forge
     # clang compilers do not provide Metal support. This Metal framework might be good to add to
@@ -29,6 +29,8 @@ test:
   commands:
     - deno --help
     - deno run https://deno.land/std/examples/welcome.ts
+    - if [ "$DENO_INSTALL_ROOT" != "$PREFIX" ]; then echo "DENO_INTALL_ROOT var not set correctly" && exit 1; fi    # [linux]
+    - IF "%DENO_INSTALL_ROOT:/=\%" NEQ "%PREFIX:/=\%\Library" exit 1    # [win]
 
 about:
   home: https://deno.land
