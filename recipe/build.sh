@@ -4,7 +4,7 @@ cargo bundle-licenses --format yaml --output DENO_THIRDPARTY_LICENSES.yml
 cargo build --release
 
 mkdir -p $PREFIX/bin
-mv target/release/deno $PREFIX/bin/deno
+mv target/$HOST/release/deno $PREFIX/bin/deno
 
 mkdir -p $PREFIX/etc/conda/activate.d
 echo "export DENO_INSTALL_ROOT=$PREFIX" > "${PREFIX}/etc/conda/activate.d/deno.sh"
