@@ -3,6 +3,11 @@
 cargo bundle-licenses --format yaml --output DENO_THIRDPARTY_LICENSES.yml
 cargo build --release
 
+if [[ $OSTYPE == 'darwin'* ]]; then
+    # this is how we get Metal, which Deno needs
+    export CFLAGS="${CFLAGS} -isysroot ${SDKROOT:-$CONDA_BUILD_SYSROOT}"
+fi
+
 mkdir -p $PREFIX/bin
 OUTPUT_EXE=$(find target -name deno | tail -n 1)
 mv $OUTPUT_EXE $PREFIX/bin/deno
