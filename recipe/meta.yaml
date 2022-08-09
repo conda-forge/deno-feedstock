@@ -14,6 +14,10 @@ build:
 requirements:
   build:
     - {{ compiler("rust") }}
+    # needs c compiler for run_exports
+    - {{ compiler("c") }}
+    # for some reason, test_ffi pkg needs lld on osx-arm64
+    - lld    # [osx and arm64]
     - cargo-bundle-licenses
     - make   # [unix]
   run:
