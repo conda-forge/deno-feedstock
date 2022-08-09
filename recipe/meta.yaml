@@ -21,9 +21,11 @@ requirements:
     # TODO: might need to use XCode compilers on MacOS because we need Metal
     #    Not sure if we need to NOT use a compiler() spec for that, and if
     #    we don't do that, then not sure how cross compilation for ARM will work.
-    - {{ compiler("rust") }}
+    - {{ compiler("rust") }}   # [not osx]
+    - {{ compiler("c") }}      # [osx]
     - cargo-bundle-licenses
     - make   # [unix]
+    - rust   # [osx]
 
 test:
   commands:
