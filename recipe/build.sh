@@ -1,16 +1,18 @@
 #!/usr/bin/env sh
 
+
 cargo bundle-licenses --format yaml --output DENO_THIRDPARTY_LICENSES.yml
 if [[ "$SUBDIR" =~ ^osx.* ]]; then
-    # requires special treatment because we need the Metal framework.
     if [ "$SUBDIR" = "osx-x64" ]; then
-        cargo build --target x86_64-apple-darwin --release
+        export CARGO_TARGET_X86_64_APPLE_DARWIN_LINKER=$CC
+        # cargo build --target x86_64-apple-darwin --release
     else
-        cargo build --target aarch64-apple-darwin --release
+        export CARGO_TARGET_AARCH64_APPLE_DARWIN_LINKER=$CC
+        # cargo build --target aarch64-apple-darwin --release
     fi
-else
-    cargo build --release
 fi
+
+cargo build --release
 
 mkdir -p $PREFIX/bin
 OUTPUT_EXE=$(find target -name deno | tail -n 1)
