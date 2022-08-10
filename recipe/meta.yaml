@@ -5,8 +5,8 @@ package:
   version: {{ version }}
 
 source:
-  - url: https://github.com/denoland/deno/releases/download/v{{ version }}/deno_src.tar.gz # [not osx or not arm64]
-    sha256: 3135c9fd8f9635f0dffcd22c5eae02222a5c1b549789af01fda683909687b8cb               # [not osx or not arm64]
+  - url: https://github.com/denoland/deno/releases/download/v{{ version }}/deno_src.tar.gz     # [not osx or not arm64]
+    sha256: 3135c9fd8f9635f0dffcd22c5eae02222a5c1b549789af01fda683909687b8cb                   # [not osx or not arm64]
   - url: https://github.com/denoland/deno/releases/download/v{{ version }}/deno-aarch64-apple-darwin.zip  # [osx and arm64]
     sha256: 309f9677f7eb636d09f86a09ccc7d7c869c5119b3ee9ffbb5ec9a0aa3159683f                              # [osx and arm64]
 
