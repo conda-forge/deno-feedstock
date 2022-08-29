@@ -16,7 +16,7 @@ else
         fi
     fi
 
-    cargo build --release
+    cargo build --release --verbose
 
     mkdir -p $PREFIX/bin
     OUTPUT_EXE=$(find target -name deno | tail -n 1)
