@@ -20,7 +20,7 @@ else
         export CPU_COUNT=1
     fi
 
-    cargo build --release --verbose -j $CPU_COUNT
+    cargo build --release -j $CPU_COUNT
 
     mkdir -p $PREFIX/bin
     OUTPUT_EXE=$(find target -name deno | tail -n 1)
