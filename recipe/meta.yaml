@@ -12,6 +12,13 @@ source:
 
 build:
   number: 0
+  # ppc64le is currently not supported by deno-ffi
+  # error: failed to run custom build command for `deno_ffi v0.51.0 (/home/conda/feedstock_root/build_artifacts/deno_1659987483450/work/ext/ffi)`
+  # Caused by:
+  #    process didn't exit successfully: `/home/conda/feedstock_root/build_artifacts/deno_1659987483450/work/target/release/build/deno_ffi-7c581e1c41e8d6c6/build-script-build` (exit status: 1)
+  #    --- stdout
+  #    Unsupported CPU
+  skip: True  # [ppc64le]
 
 requirements:   # [not osx or not arm64]
   build:   # [not osx or not arm64]
