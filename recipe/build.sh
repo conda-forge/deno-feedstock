@@ -16,11 +16,9 @@ else
 
     if [ "$SUBDIR" = "linux-aarch64" ]; then
         export CARGO_TARGET_AARCH64_LINUX_LINKER=$CC
-        # running out of memory on aarch64; limit parallel builds
-        export CPU_COUNT=1
     fi
 
-    cargo build --release -j $CPU_COUNT
+    cargo build --release
 
     mkdir -p $PREFIX/bin
     OUTPUT_EXE=$(find target -name deno | tail -n 1)
