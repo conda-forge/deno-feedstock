@@ -1,0 +1,116 @@
+From a2274b56938ce2eb460533ece60573b2b16b49b8 Mon Sep 17 00:00:00 2001
+From: Michael Sarahan <msarahan@gmail.com>
+Date: Tue, 6 Sep 2022 16:17:33 -0500
+Subject: [PATCH 1/1] use autotools-rs for building tinycc
+
+---
+ Cargo.lock         | 10 ++++++++++
+ ext/ffi/Cargo.toml |  3 +++
+ ext/ffi/build.rs   | 34 +++++++++++-----------------------
+ 3 files changed, 24 insertions(+), 23 deletions(-)
+
+diff --git a/Cargo.lock b/Cargo.lock
+index 447fea548..4db9913ad 100644
+--- a/Cargo.lock
++++ b/Cargo.lock
+@@ -233,6 +233,15 @@ version = "1.1.0"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+ checksum = "d468802bab17cbc0cc575e9b053f41e72aa36bfa6b7f55e3529ffa43161b97fa"
+ 
++[[package]]
++name = "autotools"
++version = "0.2.5"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "c8138adefca3e5d2e73bfba83bd6eeaf904b26a7ac1b4a19892cfe16cc7e1701"
++dependencies = [
++ "cc",
++]
++
+ [[package]]
+ name = "base16ct"
+ version = "0.1.1"
+@@ -1033,6 +1042,7 @@ dependencies = [
+ name = "deno_ffi"
+ version = "0.53.0"
+ dependencies = [
++ "autotools",
+  "deno_core",
+  "dlopen",
+  "libffi",
+diff --git a/ext/ffi/Cargo.toml b/ext/ffi/Cargo.toml
+index b233a5747..05d417ad2 100644
+--- a/ext/ffi/Cargo.toml
++++ b/ext/ffi/Cargo.toml
+@@ -13,6 +13,9 @@ description = "Dynamic library ffi for deno"
+ [lib]
+ path = "lib.rs"
+ 
++[build-dependencies]
++autotools = "0.2"
++
+ [dependencies]
+ deno_core = { version = "0.148.0", path = "../../core" }
+ dlopen = "0.1.8"
+diff --git a/ext/ffi/build.rs b/ext/ffi/build.rs
+index 1debd6b9c..fbdcbe58d 100644
+--- a/ext/ffi/build.rs
++++ b/ext/ffi/build.rs
+@@ -1,8 +1,10 @@
+ // Copyright 2018-2022 the Deno authors. All rights reserved. MIT license.
+ 
++
+ #[cfg(not(target_os = "windows"))]
+ fn build_tcc() {
+   use std::env;
++  use autotools::Config;
+ 
+   {
+     // TODO(@littledivy): Windows support for fast call.
+@@ -21,35 +23,21 @@ fn build_tcc() {
+   #[cfg(not(target_os = "windows"))]
+   {
+     use std::path::PathBuf;
+-    use std::process::exit;
+-    use std::process::Command;
+ 
+     let root = PathBuf::from(concat!(env!("CARGO_MANIFEST_DIR")));
+     let tcc_src = root.join("tinycc");
+     dbg!(&tcc_src);
+-    let out_dir = PathBuf::from(env::var("OUT_DIR").unwrap());
+-    let mut configure = Command::new(tcc_src.join("configure"));
+-    configure.current_dir(&out_dir);
+-    configure.args(&["--enable-static", "--extra-cflags=-fPIC -O3 -g -static"]);
+-    let status = configure.status().unwrap();
+-    if !status.success() {
+-      eprintln!("Fail to configure: {:?}", status);
+-      exit(1);
+-    }
+ 
+-    let mut make = Command::new("make");
+-    make.current_dir(&out_dir).arg(format!(
+-      "-j{}",
+-      env::var("NUM_JOBS").unwrap_or_else(|_| String::from("1"))
+-    ));
+-    make.args(&["libtcc.a"]);
+-    let status = make.status().unwrap();
++    let dst = Config::new("tinycc")
++      .enable("static", None)
++      .cflag("-fPIC")
++      .cflag("-O3")
++      .cflag("-g")
++      .cflag("-static")
++      .make_target("libtcc.a")
++      .build();
+ 
+-    if !status.success() {
+-      eprintln!("Fail to make: {:?}", status);
+-      exit(1);
+-    }
+-    println!("cargo:rustc-link-search=native={}", out_dir.display());
++    println!("cargo:rustc-link-search=native={}", dst.join("build").display());
+     println!("cargo:rerun-if-changed={}", tcc_src.display());
+   }
+ }
+-- 
+2.34.1
+

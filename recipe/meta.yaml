@@ -5,13 +5,13 @@ package:
   version: {{ version }}
 
 source:
-  - url: https://github.com/denoland/deno/releases/download/v{{ version }}/deno_src.tar.gz  # [not osx or not arm64]
-    sha256: a00fc3723377ed13a7b3eb3cc8e6564fc6604e50f7493c50d8189a8c6d457a8c  # [not osx or not arm64]
-  - url: https://github.com/denoland/deno/releases/download/v{{ version }}/deno-aarch64-apple-darwin.zip  # [osx and arm64]
-    sha256: 8b69218d94baa216f58d2a1334c4e226e59c7cf303e5abf82abf695e6c747ac5  # [osx and arm64]
+  url: https://github.com/denoland/deno/releases/download/v{{ version }}/deno_src.tar.gz
+  sha256: a00fc3723377ed13a7b3eb3cc8e6564fc6604e50f7493c50d8189a8c6d457a8c
+  patches:
+    - 0001-use-autotools-rs-for-building-tinycc.patch
 
 build:
-  number: 0
+  number: 1
   # ppc64le is currently not supported by deno-ffi
   # error: failed to run custom build command for `deno_ffi v0.51.0 (/home/conda/feedstock_root/build_artifacts/deno_1659987483450/work/ext/ffi)`
   # Caused by:
@@ -20,15 +20,15 @@ build:
   #    Unsupported CPU
   skip: True  # [ppc64le]
 
-requirements:   # [not osx or not arm64]
-  build:   # [not osx or not arm64]
-    - {{ compiler("rust") }}   # [not osx or not arm64]
+requirements:
+  build:
+    - {{ compiler("rust") }}
     # needs c compiler for run_exports
-    - {{ compiler("c") }}      # [not osx or not arm64]
+    - {{ compiler("c") }}
     # for some reason, test_ffi pkg needs lld on osx-arm64
-    # - lld    # [osx and arm64]
-    - cargo-bundle-licenses   # [not osx or not arm64]
-    - make   # [unix and not arm64]
+    - lld    # [osx and arm64]
+    - cargo-bundle-licenses
+    - make
   run:   # [osx]
     - __osx >={{ MACOSX_DEPLOYMENT_TARGET }}  # [osx]
 
@@ -44,10 +44,8 @@ about:
   license: MIT
   license_family: MIT
   license_file:
-    - LICENSE.md    # [not osx or not arm64]
+    - LICENSE.md
     - DENO_THIRDPARTY_LICENSES.yml    # [not osx or not arm64]
-    # the binary doesn't ship with a license. This is one taken from the github repo.
-    - LICENSE    # [osx and arm64]
   summary: A simple, modern and secure runtime for JavaScript and TypeScript that uses V8 and is built in Rust
   doc_url: https://deno.land/manual
   dev_url: https://github.com/denoland/deno
