@@ -1,19 +1,7 @@
 #!/usr/bin/env sh
 
 cargo bundle-licenses --format yaml --output DENO_THIRDPARTY_LICENSES.yml
-# if [[ "$SUBDIR" =~ ^osx.* ]]; then
-#     if [ "$SUBDIR" = "osx-x64" ]; then
-#         export CARGO_TARGET_X86_64_APPLE_DARWIN_LINKER=$CC
-#     else
-#         export CARGO_TARGET_AARCH64_APPLE_DARWIN_LINKER=$CC
-#     fi
-# fi
-
-# if [ "$SUBDIR" = "linux-aarch64" ]; then
-#     export CARGO_TARGET_AARCH64_LINUX_LINKER=$CC
-# fi
-
-cargo build --release
+cargo build --release 
 
 mkdir -p $PREFIX/bin
 OUTPUT_EXE=$(find target -name deno | tail -n 1)

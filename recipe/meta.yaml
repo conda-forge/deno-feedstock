@@ -9,6 +9,7 @@ source:
   sha256: a00fc3723377ed13a7b3eb3cc8e6564fc6604e50f7493c50d8189a8c6d457a8c
   patches:
     - 0001-use-autotools-rs-for-building-tinycc.patch
+    - 0002-add-system-feature-to-libffi.patch
 
 build:
   number: 1
@@ -25,10 +26,13 @@ requirements:
     - {{ compiler("rust") }}
     # needs c compiler for run_exports
     - {{ compiler("c") }}
+    - libffi     # [build_platform != target_platform]
     # for some reason, test_ffi pkg needs lld on osx-arm64
-    - lld    # [osx and arm64]
+    - lld        # [osx and arm64]
     - cargo-bundle-licenses
     - make
+  host:
+    - libffi
   run:   # [osx]
     - __osx >={{ MACOSX_DEPLOYMENT_TARGET }}  # [osx]
 

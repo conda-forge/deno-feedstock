@@ -1,7 +1,7 @@
 From a2274b56938ce2eb460533ece60573b2b16b49b8 Mon Sep 17 00:00:00 2001
 From: Michael Sarahan <msarahan@gmail.com>
 Date: Tue, 6 Sep 2022 16:17:33 -0500
-Subject: [PATCH 1/1] use autotools-rs for building tinycc
+Subject: [PATCH 1/2] use autotools-rs for building tinycc
 
 ---
  Cargo.lock         | 10 ++++++++++
