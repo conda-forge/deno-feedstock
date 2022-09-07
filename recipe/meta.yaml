@@ -10,6 +10,7 @@ source:
   patches:
     - 0001-use-autotools-rs-for-building-tinycc.patch
     - 0002-explicitly-add-libffi-system-dep-for-cross-compiling.patch
+    - 0003-allow-cross.patch
 
 build:
   number: 1

@@ -1,0 +1,72 @@
+From 470aaf847f24ad68b576c574e7e134894b4c5e2a Mon Sep 17 00:00:00 2001
+From: Michael Sarahan <msarahan@gmail.com>
+Date: Wed, 7 Sep 2022 10:09:20 -0500
+Subject: [PATCH 3/3] allow cross
+
+---
+ Cargo.lock       | 11 ++---------
+ cli/build.rs     |  6 ------
+ ext/ffi/build.rs |  1 -
+ 3 files changed, 2 insertions(+), 16 deletions(-)
+
+diff --git a/Cargo.lock b/Cargo.lock
+index 4db9913ad..5f78eda64 100644
+--- a/Cargo.lock
++++ b/Cargo.lock
+@@ -12,12 +12,6 @@ dependencies = [
+  "regex",
+ ]
+ 
+-[[package]]
+-name = "abort_on_panic"
+-version = "2.0.0"
+-source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "955f37ac58af2416bac687c8ab66a4ccba282229bd7422a28d2281a5e66a6116"
+-
+ [[package]]
+ name = "adler"
+ version = "1.0.2"
+@@ -2521,11 +2515,10 @@ checksum = "349d5a591cd28b49e1d1037471617a32ddcda5731b99419008085f72d5a53836"
+ 
+ [[package]]
+ name = "libffi"
+-version = "3.0.0"
++version = "3.0.1"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "0e08093a2ddeee94bd0c830a53d895ff91f1f3bb0f9b3c8c6b00739cdf76bc1d"
++checksum = "1e454b3efb16fba3b17810ae5e41df02b649e564ab3c5a34b3b93ed07ad287e6"
+ dependencies = [
+- "abort_on_panic",
+  "libc",
+  "libffi-sys",
+ ]
+diff --git a/cli/build.rs b/cli/build.rs
+index 1a4eaa425..668864b19 100644
+--- a/cli/build.rs
++++ b/cli/build.rs
+@@ -324,12 +324,6 @@ fn main() {
+     return;
+   }
+ 
+-  // Host snapshots won't work when cross compiling.
+-  let target = env::var("TARGET").unwrap();
+-  let host = env::var("HOST").unwrap();
+-  if target != host {
+-    panic!("Cross compiling with snapshot is not supported.");
+-  }
+   // To debug snapshot issues uncomment:
+   // op_fetch_asset::trace_serializer();
+ 
+diff --git a/ext/ffi/build.rs b/ext/ffi/build.rs
+index ddd8eeca6..fbdcbe58d 100644
+--- a/ext/ffi/build.rs
++++ b/ext/ffi/build.rs
+@@ -55,5 +55,4 @@ fn main() {
+     build_tcc();
+   }
+   println!("cargo:rustc-link-lib=static=tcc");
+-  println!("cargo:rustc-link-lib=ffi");
+ }
+-- 
+2.34.1
+
