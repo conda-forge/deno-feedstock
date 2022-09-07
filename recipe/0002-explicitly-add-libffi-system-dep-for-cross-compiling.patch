@@ -1,0 +1,36 @@
+From 7e205d19ffdf149e1744f89e544129b6d5132ecd Mon Sep 17 00:00:00 2001
+From: Michael Sarahan <msarahan@gmail.com>
+Date: Tue, 6 Sep 2022 21:13:06 -0500
+Subject: [PATCH 2/2] explicitly add libffi system dep for cross compiling
+
+---
+ ext/ffi/Cargo.toml | 2 +-
+ ext/ffi/build.rs   | 1 +
+ 2 files changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/ext/ffi/Cargo.toml b/ext/ffi/Cargo.toml
+index 05d417ad2..7763d2d83 100644
+--- a/ext/ffi/Cargo.toml
++++ b/ext/ffi/Cargo.toml
+@@ -19,7 +19,7 @@ autotools = "0.2"
+ [dependencies]
+ deno_core = { version = "0.148.0", path = "../../core" }
+ dlopen = "0.1.8"
+-libffi = "3.0.0"
++libffi = { version="3.0.1", features=["system"] }
+ serde = { version = "1.0.129", features = ["derive"] }
+ tokio = { version = "1.17", features = ["full"] }
+ 
+diff --git a/ext/ffi/build.rs b/ext/ffi/build.rs
+index fbdcbe58d..ddd8eeca6 100644
+--- a/ext/ffi/build.rs
++++ b/ext/ffi/build.rs
+@@ -55,4 +55,5 @@ fn main() {
+     build_tcc();
+   }
+   println!("cargo:rustc-link-lib=static=tcc");
++  println!("cargo:rustc-link-lib=ffi");
+ }
+-- 
+2.34.1
+
