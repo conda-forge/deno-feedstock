@@ -1,5 +1,8 @@
 #!/usr/bin/env sh
 
+export CARGO_BUILD_RUSTFLAGS="-C link-arg=-Wl,-rpath-link,${BUILD_PREFIX:-${CONDA_PREFIX}}/lib"
+declare -x "CARGO_TARGET_${CONDA_RUST_TARGET}_RUSTFLAGS"="-C link-arg=-Wl,-rpath,${PREFIX:-${CONDA_PREFIX}}/lib"
+
 cargo bundle-licenses --format yaml --output DENO_THIRDPARTY_LICENSES.yml
 cargo build --release 
 
