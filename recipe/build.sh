@@ -1,11 +1,11 @@
 #!/usr/bin/env sh
 
 unset CARGO_BUILD_RUSTFLAGS
-declare -x "CARGO_TARGET_${CONDA_RUST_HOST}_RUSTFLAGS"="-C link-arg=-Wl,-rpath,${BUILD_PREFIX}/lib,-L${BUILD_PREFIX}/lib"
-declare -x "CARGO_TARGET_${CONDA_RUST_TARGET}_RUSTFLAGS"="-C link-arg=-Wl,-rpath,${PREFIX}/lib,-L${PREFIX}/lib"
+declare -x "CFLAGS_${CONDA_RUST_HOST}_RUSTFLAGS"="-Wl,-rpath,${BUILD_PREFIX}/lib -L${BUILD_PREFIX}/lib"
+declare -x "CFLAGS_${CONDA_RUST_TARGET}_RUSTFLAGS"="-Wl,-rpath,${PREFIX}/lib octave-feedstock/pull/81/files-L${PREFIX}/lib"
 
-export "CARGO_TARGET_${CONDA_RUST_HOST}_RUSTFLAGS"
-export "CARGO_TARGET_${CONDA_RUST_TARGET}_RUSTFLAGS"
+export "CFLAGS_${CONDA_RUST_HOST}_RUSTFLAGS"
+export "CFLAGS_${CONDA_RUST_TARGET}_RUSTFLAGS"
 
 cargo bundle-licenses --format yaml --output DENO_THIRDPARTY_LICENSES.yml
 cargo build --release 
