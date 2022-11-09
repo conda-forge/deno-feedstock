@@ -1,4 +1,4 @@
-{% set version = "1.26.1" %}
+{% set version = "1.27.2" %}
 
 package:
   name: deno
@@ -6,9 +6,9 @@ package:
 
 source:
   - url: https://github.com/denoland/deno/releases/download/v{{ version }}/deno_src.tar.gz  # [not osx or not arm64]
-    sha256: fee389f62ff7b558bcaec0ff4a9ec3894c07a981b12b5b122cbc4175dd5285d7  # [not osx or not arm64]
+    sha256: 14261bdb5543aa2e0ecdfed3c0eafd76dbc7cd7dbd85127c8521daff56ef526a  # [not osx or not arm64]
   - url: https://github.com/denoland/deno/releases/download/v{{ version }}/deno-aarch64-apple-darwin.zip  # [osx and arm64]
-    sha256: cec0dadc9dfb8b6b711e6a614e4688c27e7b5f7a20bd3a046245b22f043cf7b6  # [osx and arm64]
+    sha256: f7b550e0d0ce9e96164cfb84385d1528aa98f5ba2cdb2a0c5ee75fdb5401e7f2  # [osx and arm64]
 
 build:
   number: 0
