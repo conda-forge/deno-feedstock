@@ -3,21 +3,6 @@ About deno-feedstock
 
 Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/deno-feedstock/blob/main/LICENSE.txt)
 
-About deno
-----------
-
-Home: https://deno.land
-
-Package license: MIT
-
-Summary: A simple, modern and secure runtime for JavaScript and TypeScript that uses V8 and is built in Rust
-
-Development: https://github.com/denoland/deno
-
-Documentation: https://deno.land/manual
-About deno
-----------
-
 Home: https://deno.land
 
 Package license: MIT
@@ -32,7 +17,14 @@ Current build status
 ====================
 
 
-<table>
+<table><tr>
+    <td>Travis</td>
+    <td>
+      <a href="https://app.travis-ci.com/conda-forge/deno-feedstock">
+        <img alt="linux" src="https://img.shields.io/travis/com/conda-forge/deno-feedstock/main.svg?label=Linux">
+      </a>
+    </td>
+  </tr>
     
   <tr>
     <td>Azure</td>
@@ -50,6 +42,13 @@ Current build status
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=14856&branchName=main">
                   <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/deno-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_64_" alt="variant">
+                </a>
+              </td>
+            </tr><tr>
+              <td>linux_aarch64</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=14856&branchName=main">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/deno-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_aarch64_" alt="variant">
                 </a>
               </td>
             </tr><tr>
