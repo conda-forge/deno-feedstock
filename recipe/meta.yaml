@@ -1,4 +1,4 @@
-{% set version = "1.36.3" %}
+{% set version = "1.36.4" %}
 
 package:
   name: deno
@@ -6,12 +6,12 @@ package:
 
 source:
   - url: https://github.com/denoland/deno/releases/download/v{{ version }}/deno_src.tar.gz  # [not osx or not arm64]
-    sha256: aac93b064dd5f9658184879542a9cad61f7cea599b85442563b86fd78da116d1  # [not osx or not arm64]
+    sha256: 6cb639ee21bc6306a321a502b12cd336f5f9be5ffa37096293b413d4b8895baf  # [not osx or not arm64]
     patches:   # [not osx or not arm64]
       - fix-libffi-msvc.patch     # [not osx or not arm64]
       - drop-zlib-ng.patch     # [not osx or not arm64]
   - url: https://github.com/denoland/deno/releases/download/v{{ version }}/deno-aarch64-apple-darwin.zip  # [osx and arm64]
-    sha256: 3826d988aba7908fc877d984aef50007e72184b7c34bcf583390d846de04c8c4  # [osx and arm64]
+    sha256: 3d23a97acc7f66933355db06776ae732b08055db0be6a38e4c39d6bcaa15967f  # [osx and arm64]
 
 build:
   number: 0
@@ -26,6 +26,7 @@ requirements:   # [not osx or not arm64]
     - cargo-bundle-licenses   # [not osx or not arm64]
     - make   # [unix and not arm64]
     - cmake  # [unix and not arm64]
+    - libprotobuf  # [not osx or not arm64]
   run:   # [osx and x86_64]
     - __osx >={{ MACOSX_DEPLOYMENT_TARGET }}  # [osx and x86_64]
 
