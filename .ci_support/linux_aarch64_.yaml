@@ -15,7 +15,7 @@ channel_targets:
 docker_image:
 - quay.io/condaforge/linux-anvil-aarch64
 libprotobuf:
-- 4.23.3
+- 4.23.4
 rust_compiler:
 - rust
 target_platform:
