@@ -26,6 +26,7 @@ requirements:   # [not osx or not arm64]
     - cargo-bundle-licenses   # [not osx or not arm64]
     - make   # [unix and not arm64]
     - cmake  # [unix and not arm64]
+    # libprotobuf is on build, not host, since we only need protoc
     - libprotobuf  # [not osx or not arm64]
   run:   # [osx and x86_64]
     - __osx >={{ MACOSX_DEPLOYMENT_TARGET }}  # [osx and x86_64]
