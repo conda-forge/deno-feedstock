@@ -16,7 +16,19 @@ else
         fi
     fi
 
-    cargo build --release
+    build_args=
+    if [ -n "$CARGO_BUILD_TARGET" ]; then
+        echo "Building for target $CARGO_BUILD_TARGET" >&2
+        build_args="--target=$CARGO_BUILD_TARGET --features __runtime_js_sources"
+        # we know what we're doing lol
+        export DENO_SKIP_CROSS_BUILD_CHECK=1
+        # this var screws up libffi builds, we need both build & host builds
+        unset host_alias
+    else
+        build_args="--features snapshot"
+    fi
+    echo "cargo build --release $build_args" >&2
+    cargo build --release $build_args
 
     mkdir -p $PREFIX/bin
     OUTPUT_EXE=$(find target -name deno | tail -n 1)
