@@ -8,7 +8,7 @@ From: Michael Ekstrand <md@ekstrandom.net>
  1 file changed, 3 insertions(+)
 
 diff --git a/Cargo.toml b/Cargo.toml
-index b28813f50..ac44f771d 100644
+index b28813f50..5ec91af0d 100644
 --- a/Cargo.toml
 +++ b/Cargo.toml
 @@ -172,6 +172,9 @@ winres = "=0.1.12"
@@ -16,7 +16,7 @@ index b28813f50..ac44f771d 100644
  windows-sys = { version = "0.48.0", features = ["Win32_Media"] }
  
 +[patch.crates-io]
-+libffi-sys = { git = "https://github.com/mdekstrand/libffi-rs", branch = "patch-msvc-build" }
++libffi-sys = { git = "https://github.com/tov/libffi-rs", branch = "master" }
 +
  # NB: the `bench` and `release` profiles must remain EXACTLY the same.
  [profile.release]
