@@ -24,6 +24,8 @@ else
         export DENO_SKIP_CROSS_BUILD_CHECK=1
         # this var screws up libffi builds, we need both build & host builds
         unset host_alias
+        # for cross-builds turn down LTO, it takes forever
+        export CARGO_PROFILE_RELEASE_LTO=thin
     else
         build_args="--features snapshot"
     fi
