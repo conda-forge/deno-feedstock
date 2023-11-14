@@ -9,7 +9,7 @@ From: Michael Ekstrand <mdekstrand@drexel.edu>
  2 files changed, 8 insertions(+), 2 deletions(-)
 
 diff --git a/cli/Cargo.toml b/cli/Cargo.toml
-index 4e6fa01d5..79a0c33d9 100644
+index 9356af0ac..aa12bfb41 100644
 --- a/cli/Cargo.toml
 +++ b/cli/Cargo.toml
 @@ -30,6 +30,7 @@ path = "./bench/lsp_bench_standalone.rs"

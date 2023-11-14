@@ -8,7 +8,7 @@ From: Michael Ekstrand <mdekstrand@drexel.edu>
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/Cargo.toml b/Cargo.toml
-index 8b4319612..594daaa41 100644
+index e27627304..92fa2ca0b 100644
 --- a/Cargo.toml
 +++ b/Cargo.toml
 @@ -95,7 +95,7 @@ encoding_rs = "=0.8.33"
