@@ -8,12 +8,12 @@ From: Michael Ekstrand <mdekstrand@drexel.edu>
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/Cargo.toml b/Cargo.toml
-index 5ec91af0d..05a7d3155 100644
+index e27627304..92fa2ca0b 100644
 --- a/Cargo.toml
 +++ b/Cargo.toml
-@@ -89,7 +89,7 @@ encoding_rs = "=0.8.33"
+@@ -95,7 +95,7 @@ encoding_rs = "=0.8.33"
  ecb = "=0.1.2"
- fastwebsockets = "=0.4.4"
+ fastwebsockets = "=0.5.0"
  filetime = "0.2.16"
 -flate2 = { version = "1.0.26", features = ["zlib-ng"], default-features = false }
 +flate2 = { version = "1.0.26" }

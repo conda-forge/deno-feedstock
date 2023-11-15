@@ -9,7 +9,7 @@ From: Michael Ekstrand <mdekstrand@drexel.edu>
  2 files changed, 8 insertions(+), 2 deletions(-)
 
 diff --git a/cli/Cargo.toml b/cli/Cargo.toml
-index 4061456dc..6bd244808 100644
+index 9356af0ac..aa12bfb41 100644
 --- a/cli/Cargo.toml
 +++ b/cli/Cargo.toml
 @@ -30,6 +30,7 @@ path = "./bench/lsp_bench_standalone.rs"
@@ -22,21 +22,21 @@ index 4061456dc..6bd244808 100644
  deno_runtime = { workspace = true, features = ["exclude_runtime_main_js", "include_js_files_for_snapshotting"] }
 @@ -48,14 +49,14 @@ winres.workspace = true
  deno_ast = { workspace = true, features = ["bundler", "cjs", "codegen", "dep_graph", "module_specifier", "proposal", "react", "sourcemap", "transforms", "typescript", "view", "visit"] }
- deno_cache_dir = "=0.6.0"
- deno_config = "=0.3.1"
+ deno_cache_dir = "=0.6.1"
+ deno_config = "=0.5.0"
 -deno_core = { workspace = true, features = ["include_js_files_for_snapshotting"] }
 +deno_core = { workspace = true }
- deno_doc = "=0.67.0"
- deno_emit = "=0.28.0"
- deno_graph = "=0.55.0"
- deno_lint = { version = "=0.51.0", features = ["docs"] }
+ deno_doc = { version = "=0.72.2", features = ["html"] }
+ deno_emit = "=0.31.1"
+ deno_graph = "=0.59.2"
+ deno_lint = { version = "=0.52.2", features = ["docs"] }
  deno_lockfile.workspace = true
  deno_npm = "0.15.2"
 -deno_runtime = { workspace = true, features = ["dont_create_runtime_snapshot", "exclude_runtime_main_js", "include_js_files_for_snapshotting"] }
 +deno_runtime = { workspace = true, features = ["dont_create_runtime_snapshot", "exclude_runtime_main_js"] }
  deno_semver = "0.5.1"
- deno_task_shell = "=0.13.2"
- eszip = "=0.53.0"
+ deno_task_shell = "=0.14.0"
+ eszip = "=0.55.2"
 diff --git a/cli/ops/mod.rs b/cli/ops/mod.rs
 index eb75dc272..91a8eee29 100644
 --- a/cli/ops/mod.rs
