@@ -1,5 +1,0 @@
-# This series applies on GIT commit 0e7ad0388be7413db6ded8b60d5ae5d7cc0ffda0
-01-fix-libffi-msvc.patch
-02-drop-zlib-ng.patch
-03-cross-build-source-bundling.patch
-04-update-ring-version.patch
