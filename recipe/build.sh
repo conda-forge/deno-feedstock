@@ -30,7 +30,7 @@ else
         build_args="--features snapshot"
     fi
     echo "cargo build --release $build_args" >&2
-    cargo build --release $build_args
+    cargo build --release --no-default-features $build_args
 
     mkdir -p $PREFIX/bin
     OUTPUT_EXE=$(find target -name deno | tail -n 1)
