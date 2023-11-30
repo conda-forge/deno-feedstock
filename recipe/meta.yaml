@@ -9,7 +9,7 @@ source:
     sha256: 16859b0a5f43d5efa030b19d40fd8e940557b3dfa843f333a2b87575dae20b66  # [not osx or not arm64]
     patches:   # [not osx or not arm64]
       - 01-fix-libffi-msvc.patch     # [not osx or not arm64]
-      - 02-cross-build-source-bundling.patch   # [not osx or not arm64]
+      - 02-cross-build-source.patch   # [not osx or not arm64]
       - 03-update-ring-version.patch  # [not osx or not arm64]
   - url: https://github.com/denoland/deno/releases/download/v{{ version }}/deno-aarch64-apple-darwin.zip  # [osx and arm64]
     sha256: 90d52f8a29710d951858f5385bddb8b5eea773e21745f5947fbec047272dd9b4  # [osx and arm64]
