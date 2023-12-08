@@ -1,0 +1,55 @@
+cross-build source bundling
+
+From: Michael Ekstrand <mdekstrand@drexel.edu>
+
+
+---
+ cli/Cargo.toml |    5 +++--
+ cli/ops/mod.rs |    5 +++++
+ 2 files changed, 8 insertions(+), 2 deletions(-)
+
+diff --git a/cli/Cargo.toml b/cli/Cargo.toml
+index 55a367a3d..60121514b 100644
+--- a/cli/Cargo.toml
++++ b/cli/Cargo.toml
+@@ -33,6 +33,7 @@ default = ["__vendored_zlib_ng"]
+ __runtime_js_sources = ["deno_runtime/__runtime_js_sources"]
+ # Vendor zlib as zlib-ng
+ __vendored_zlib_ng = ["flate2/zlib-ng-compat", "libz-sys/zlib-ng"]
++snapshot = ["deno_core/include_js_files_for_snapshotting", "deno_runtime/include_js_files_for_snapshotting"]
+ 
+ [build-dependencies]
+ deno_runtime = { workspace = true, features = ["exclude_runtime_main_js", "include_js_files_for_snapshotting"] }
+@@ -52,14 +53,14 @@ winres.workspace = true
+ deno_ast = { workspace = true, features = ["bundler", "cjs", "codegen", "dep_graph", "module_specifier", "proposal", "react", "sourcemap", "transforms", "typescript", "view", "visit"] }
+ deno_cache_dir = "=0.6.1"
+ deno_config = "=0.6.4"
+-deno_core = { workspace = true, features = ["include_js_files_for_snapshotting"] }
++deno_core = { workspace = true }
+ deno_doc = { version = "=0.73.3", features = ["html"] }
+ deno_emit = "=0.31.4"
+ deno_graph = "=0.61.1"
+ deno_lint = { version = "=0.52.2", features = ["docs"] }
+ deno_lockfile.workspace = true
+ deno_npm = "0.15.2"
+-deno_runtime = { workspace = true, features = ["dont_create_runtime_snapshot", "exclude_runtime_main_js", "include_js_files_for_snapshotting"] }
++deno_runtime = { workspace = true, features = ["dont_create_runtime_snapshot", "exclude_runtime_main_js"] }
+ deno_semver = "0.5.1"
+ deno_task_shell = "=0.14.0"
+ eszip = "=0.55.4"
+diff --git a/cli/ops/mod.rs b/cli/ops/mod.rs
+index f34e5f39c..b0c708eb6 100644
+--- a/cli/ops/mod.rs
++++ b/cli/ops/mod.rs
+@@ -27,6 +27,11 @@ deno_core::extension!(cli,
+   customizer = |ext: &mut deno_core::Extension| {
+     ext.esm_files.to_mut().push(deno_core::ExtensionFileSource {
+       specifier: "ext:cli/runtime/js/99_main.js",
++      #[cfg(not(feature = "include_js_files_for_snapshotting"))]
++      code: deno_core::ExtensionFileSourceCode::IncludedInBinary(
++        deno_runtime::js::SOURCE_CODE_FOR_99_MAIN_JS,
++      ),
++      #[cfg(feature = "include_js_files_for_snapshotting")]
+       code: deno_core::ExtensionFileSourceCode::LoadedFromFsDuringSnapshot(
+         deno_runtime::js::PATH_FOR_99_MAIN_JS,
+       ),
