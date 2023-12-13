@@ -1,5 +1,4 @@
-# This series applies on GIT commit 0e7ad0388be7413db6ded8b60d5ae5d7cc0ffda0
+# This series applies on Git commit 172e5f0a0cea97ba27f7f6e46fb8f9b31f8dbbc6
 01-fix-libffi-msvc.patch
-02-drop-zlib-ng.patch
-03-cross-build-source-bundling.patch
-04-update-ring-version.patch
+02-cross-build-source.patch
+03-update-ring-version.patch
