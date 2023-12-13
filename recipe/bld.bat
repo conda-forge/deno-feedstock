@@ -1,6 +1,8 @@
 
 cargo bundle-licenses --format yaml --output DENO_THIRDPARTY_LICENSES.yml
 if errorlevel 1 exit 1
+rem turn down LTO to try to avoid OOM
+set CARGO_PROFILE_RELEASE_LTO=thin
 cargo build --release --no-default-features
 if errorlevel 1 exit 1
 
