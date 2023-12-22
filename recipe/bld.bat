@@ -12,7 +12,7 @@ COPY target\%HOST%\release\deno.exe %LIBRARY_BIN%\deno.exe
 if errorlevel 1 exit 1
 
 echo Cleaning cargo home
-rd %CARGO__HOME% /s
+rd %CARGO_HOME% /s
 
 mkdir %PREFIX:/=\%\etc\conda\activate.d
 echo SET "DENO_INSTALL_ROOT=%LIBRARY_PREFIX:/=\%" > "%PREFIX:/=\%\etc\conda\activate.d\deno.bat"
