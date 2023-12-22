@@ -11,7 +11,7 @@ mkdir %LIBRARY_BIN%
 COPY target\%HOST%\release\deno.exe %LIBRARY_BIN%\deno.exe
 if errorlevel 1 exit 1
 
-echo Cleaning cargo home
+echo Cleaning %CARGO_HOME%
 rd %CARGO_HOME% /s
 
 mkdir %PREFIX:/=\%\etc\conda\activate.d
