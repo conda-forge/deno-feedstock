@@ -1,0 +1,310 @@
+Cargo cross-build patch from https://github.com/fm-elpac/cargo-cross-build
+
+---
+ run_build.sh                                 |    8 +
+ src/cargo/core/compiler/cross_build.rs       |  149 ++++++++++++++++++++++++++
+ src/cargo/core/compiler/custom_build.rs      |    3 +
+ src/cargo/core/compiler/mod.rs               |   11 +-
+ src/cargo/core/compiler/unit_dependencies.rs |   22 +++-
+ src/cargo/core/manifest.rs                   |    3 +
+ src/cargo/core/profiles.rs                   |    5 +
+ 7 files changed, 193 insertions(+), 8 deletions(-)
+ create mode 100755 run_build.sh
+ create mode 100644 src/cargo/core/compiler/cross_build.rs
+
+diff --git a/run_build.sh b/run_build.sh
+new file mode 100755
+index 000000000..86a2636c5
+--- /dev/null
++++ b/run_build.sh
+@@ -0,0 +1,8 @@
++#!/bin/bash
++# cargo-cross-build/run_build.sh
++#
++# a placeholder script for debug
++echo $1
++
++# just run the real build script binary
++$1
+diff --git a/src/cargo/core/compiler/cross_build.rs b/src/cargo/core/compiler/cross_build.rs
+new file mode 100644
+index 000000000..414a390f0
+--- /dev/null
++++ b/src/cargo/core/compiler/cross_build.rs
+@@ -0,0 +1,149 @@
++//! # cargo-cross-build
++//!
++//! <https://github.com/fm-elpac/cargo-cross-build>
++
++use std::env;
++
++use crate::core::compiler::compile_kind::CompileKind;
++use crate::core::manifest::Target;
++use crate::core::manifest::TargetSourcePath;
++use crate::core::profiles::UnitFor;
++use crate::core::Package;
++use cargo_util::ProcessBuilder;
++
++/// env var name: a list of crate name
++///
++/// eg: `deno_runtime:deno`
++const BUILD_CRATES: &'static str = "CARGO_CROSS_BUILD_CRATES";
++
++/// env var name: command to run instead of the real build script binary
++///
++/// eg: `run_build.sh`
++const BUILD_RUN: &'static str = "CARGO_CROSS_BUILD_RUN";
++
++/// env var name: a list of end of `build.rs` path to build for target
++///
++/// eg: `deno_runtime-0.118.0/build.rs:deno-1.35.0/build.rs`
++const BUILD_RS: &'static str = "CARGO_CROSS_BUILD_RS";
++
++const SEP: &'static str = ":";
++
++/// config data for cargo-cross-build
++#[derive(Debug)]
++struct ConfData {
++    build_crates: Vec<String>,
++    build_run: Option<String>,
++    build_rs: Vec<String>,
++}
++
++impl ConfData {
++    /// read env var value
++    pub fn new() -> Self {
++        let mut o = Self {
++            build_crates: Vec::new(),
++            build_run: None,
++            build_rs: Vec::new(),
++        };
++
++        if let Ok(v) = env::var(BUILD_CRATES) {
++            for i in v.split(SEP) {
++                o.build_crates.push(i.to_string());
++            }
++        }
++        if let Ok(v) = env::var(BUILD_RUN) {
++            o.build_run = Some(v);
++        }
++        if let Ok(v) = env::var(BUILD_RS) {
++            for i in v.split(SEP) {
++                o.build_rs.push(i.to_string());
++            }
++        }
++        o
++    }
++
++    /// check if name in build_crates
++    pub fn has(&self, name: &str) -> bool {
++        for i in &self.build_crates {
++            if i == name {
++                return true;
++            }
++        }
++        false
++    }
++
++    /// check `build.rs` path match
++    pub fn check_rs(&self, p: &TargetSourcePath) -> bool {
++        if let TargetSourcePath::Path(p) = p {
++            for i in &self.build_rs {
++                if p.ends_with(i) {
++                    return true;
++                }
++            }
++        }
++        false
++    }
++
++    pub fn get_run(&self) -> Option<String> {
++        self.build_run.clone()
++    }
++}
++
++/// get `name` of a crate
++fn get_pkg_name(p: &Package) -> &'static str {
++    p.name().as_str()
++}
++
++/// replace build script run command
++pub fn check_cmd(cmd: &mut ProcessBuilder, p: &Package) {
++    let name = get_pkg_name(p);
++
++    let c = ConfData::new();
++    if c.has(name) {
++        if let Some(r) = c.get_run() {
++            let exec = cmd.get_program().clone();
++
++            // debug!("cargo-cross-build (check_cmd): {:?}", c);
++            println!("cargo-cross-build (check_cmd): name = {}", name);
++            println!("cargo-cross-build (check_cmd): exec = {:?}", exec);
++            // debug!("args = {:?}", cmd.get_args().collect::<Vec<_>>());
++            println!("cargo-cross-build (check_cmd): r = {}", r);
++
++            cmd.program(r);
++            cmd.arg(exec);
++        }
++    }
++}
++
++/// set `for_host` for build script Target
++pub fn check_target(target: &mut Target) {
++    // target.name() == `build-script-build`
++    // target.crate_name() == `build_script_build`
++    let p = target.src_path();
++
++    let c = ConfData::new();
++    if c.check_rs(p) {
++        // debug!("cargo-cross-build (check_target): {:?}", c);
++        println!("cargo-cross-build (check_target): for_host(false)  {:?}", p);
++
++        // build for target, not host
++        target.set_for_host(false);
++    }
++}
++
++/// set `host: false` for build.rs
++pub fn check_unitfor(u: &mut UnitFor, p: &Package, u2: &UnitFor) -> CompileKind {
++    let name = get_pkg_name(p);
++
++    let c = ConfData::new();
++    if c.has(name) {
++        // debug!("cargo-cross-build (check_unitfor): {:?}", c);
++        println!("cargo-cross-build (check_unitfor): name = {}", name);
++
++        u.set_for_host(false);
++        // not for host
++        return u2.root_compile_kind();
++    }
++
++    // default value for build script
++    CompileKind::Host
++}
+diff --git a/src/cargo/core/compiler/custom_build.rs b/src/cargo/core/compiler/custom_build.rs
+index 3eeeaa0ee..c9f50585c 100644
+--- a/src/cargo/core/compiler/custom_build.rs
++++ b/src/cargo/core/compiler/custom_build.rs
+@@ -275,6 +275,9 @@ fn build_work(cx: &mut Context<'_, '_>, unit: &Unit) -> CargoResult<Job> {
+     // carried over.
+     let to_exec = to_exec.into_os_string();
+     let mut cmd = cx.compilation.host_process(to_exec, &unit.pkg)?;
++    // cargo-cross-build
++    super::cross_build::check_cmd(&mut cmd, &unit.pkg);
++
+     let debug = unit.profile.debuginfo.is_turned_on();
+     cmd.env("OUT_DIR", &script_out_dir)
+         .env("CARGO_MANIFEST_DIR", unit.pkg.root())
+diff --git a/src/cargo/core/compiler/mod.rs b/src/cargo/core/compiler/mod.rs
+index b0f15bd61..bae1027ca 100644
+--- a/src/cargo/core/compiler/mod.rs
++++ b/src/cargo/core/compiler/mod.rs
+@@ -54,6 +54,9 @@ mod unit;
+ pub mod unit_dependencies;
+ pub mod unit_graph;
+ 
++// cargo-cross-build
++pub mod cross_build;
++
+ use std::collections::{HashMap, HashSet};
+ use std::env;
+ use std::ffi::{OsStr, OsString};
+@@ -926,10 +929,10 @@ fn add_error_format_and_color(cx: &Context<'_, '_>, cmd: &mut ProcessBuilder) {
+     }
+     cmd.arg(json);
+ 
+-    let config = cx.bcx.config;
+-    if let Some(width) = config.shell().err_width().diagnostic_terminal_width() {
+-        cmd.arg(format!("--diagnostic-width={width}"));
+-    }
++    // let config = cx.bcx.config;
++    // if let Some(width) = config.shell().err_width().diagnostic_terminal_width() {
++    //     cmd.arg(format!("--diagnostic-width={width}"));
++    // }
+ }
+ 
+ /// Adds essential rustc flags and environment variables to the command to execute.
+diff --git a/src/cargo/core/compiler/unit_dependencies.rs b/src/cargo/core/compiler/unit_dependencies.rs
+index 7116ba207..5ea8f4682 100644
+--- a/src/cargo/core/compiler/unit_dependencies.rs
++++ b/src/cargo/core/compiler/unit_dependencies.rs
+@@ -468,7 +468,13 @@ fn compute_deps_custom_build(
+     // All dependencies of this unit should use profiles for custom builds.
+     // If this is a build script of a proc macro, make sure it uses host
+     // features.
+-    let script_unit_for = unit_for.for_custom_build();
++    // cargo-cross-build
++    let u2 = unit_for.clone();
++
++    let mut script_unit_for = unit_for.for_custom_build();
++    // cargo-cross-build
++    let k = super::cross_build::check_unitfor(&mut script_unit_for, &unit.pkg, &u2);
++
+     // When not overridden, then the dependencies to run a build script are:
+     //
+     // 1. Compiling the build script itself.
+@@ -485,7 +491,8 @@ fn compute_deps_custom_build(
+         &unit.target,
+         script_unit_for,
+         // Build scripts always compiled for the host.
+-        CompileKind::Host,
++        // cargo-cross-build
++        k.clone(),
+         CompileMode::Build,
+         IS_NO_ARTIFACT_DEP,
+     )?;
+@@ -523,7 +530,8 @@ fn compute_deps_custom_build(
+                     resolved_artifact_compile_kind,
+                 ),
+                 state,
+-                resolved_artifact_compile_kind.unwrap_or(CompileKind::Host),
++                // cargo-cross-build
++                resolved_artifact_compile_kind.unwrap_or(k.clone()),
+                 artifact_pkg,
+                 dep,
+             )?);
+@@ -765,7 +773,13 @@ fn dep_build_script(
+             // compiled twice. I believe it is not feasible to only build it
+             // once because it would break a large number of scripts (they
+             // would think they have the wrong set of features enabled).
+-            let script_unit_for = unit_for.for_custom_build();
++            // cargo-cross-build
++            let u2 = unit_for.clone();
++
++            let mut script_unit_for = unit_for.for_custom_build();
++            // cargo-cross-build
++            super::cross_build::check_unitfor(&mut script_unit_for, &unit.pkg, &u2);
++
+             new_unit_dep_with_profile(
+                 state,
+                 unit,
+diff --git a/src/cargo/core/manifest.rs b/src/cargo/core/manifest.rs
+index 7886abec3..55c2a8668 100644
+--- a/src/cargo/core/manifest.rs
++++ b/src/cargo/core/manifest.rs
+@@ -719,6 +719,9 @@ impl Target {
+             .set_benched(false)
+             .set_tested(false)
+             .set_doc_scrape_examples(RustdocScrapeExamples::Disabled);
++        // cargo-cross-build
++        super::compiler::cross_build::check_target(&mut target);
++
+         target
+     }
+ 
+diff --git a/src/cargo/core/profiles.rs b/src/cargo/core/profiles.rs
+index 1ad9ed5f7..4818e9050 100644
+--- a/src/cargo/core/profiles.rs
++++ b/src/cargo/core/profiles.rs
+@@ -1127,6 +1127,11 @@ impl UnitFor {
+         self.host_features
+     }
+ 
++    // cargo-cross-build
++    pub fn set_for_host(&mut self, host: bool) {
++        self.host = host;
++    }
++
+     /// Returns how `panic` settings should be handled for this profile
+     fn panic_setting(&self) -> PanicSetting {
+         self.panic_setting
