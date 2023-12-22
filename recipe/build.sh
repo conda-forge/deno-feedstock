@@ -1,4 +1,6 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
+
+set -e
 
 mkdir -p $PREFIX/bin
 if [ "$SUBDIR" = "osx-arm64" ]; then
@@ -17,7 +19,7 @@ else
     fi
 
     build_args=
-    if [ -n "$CARGO_BUILD_TARGET" ]; then
+    if [[ "$CONDA_TOOLCHAIN_BUILD" != "$CONDA_TOOLCHAIN_HOST" ]]; then
         echo "Building for target $CARGO_BUILD_TARGET" >&2
         build_args="--target=$CARGO_BUILD_TARGET --features __runtime_js_sources"
         # we know what we're doing lol

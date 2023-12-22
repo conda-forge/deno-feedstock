@@ -14,7 +14,7 @@ source:
     sha256: 9b61ecb0be58f108f217503fe87f9f7207dcaa99e9a19fb88d9b0a50a34449f5  # [osx and arm64]
 
 build:
-  number: 0
+  number: 1
 
 requirements:   # [not osx or not arm64]
   build:   # [not osx or not arm64]
@@ -32,11 +32,14 @@ requirements:   # [not osx or not arm64]
     - __osx >={{ MACOSX_DEPLOYMENT_TARGET }}  # [osx and x86_64]
 
 test:
+  files:
+    - test-build-arch.js
   commands:
     - deno --help
     - deno run https://examples.deno.land/hello-world.ts
     - if [ "$DENO_INSTALL_ROOT" != "$PREFIX" ]; then echo "DENO_INTALL_ROOT var not set correctly" && exit 1; fi    # [unix]
     - IF "%DENO_INSTALL_ROOT:/=\%" NEQ "%PREFIX:/=\%\Library" exit 1    # [win]
+    - deno run test-build-arch.js   # [x86_64]
 
 about:
   home: https://deno.land
