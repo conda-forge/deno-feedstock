@@ -22,7 +22,7 @@ else
     if [[ "$CONDA_TOOLCHAIN_BUILD" != "$CONDA_TOOLCHAIN_HOST" ]]; then
         echo "Building for target $CARGO_BUILD_TARGET" >&2
         echo "Building patched cargo" >&2
-        (cd cargo-cross && cargo build --release)
+        (cd cargo-cross && cargo build --release --features openssl-sys/vendored)
         CARGO="$PWD/cargo-cross/target/release/cargo"
         
         # we know what we're doing lol
