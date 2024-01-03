@@ -13,7 +13,8 @@ if errorlevel 1 exit 1
 
 if exist %BUILD_PREFIX%\.cargo\ (
   echo Cleaning %BUILD_PREFIX%\.cargo
-  rd %BUILD_PREFIX\.cargo /s
+  rd %BUILD_PREFIX%\.cargo /s
+  echo Cleanup completed
 ) else (
   echo No Cargo home found
 )
