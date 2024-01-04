@@ -37,6 +37,9 @@ else
     mkdir -p $PREFIX/bin
     OUTPUT_EXE=$(find target -name deno | tail -n 1)
     mv $OUTPUT_EXE $PREFIX/bin/deno
+
+    echo "cleaning cargo dir"
+    [ -n "$CARGO_HOME" ] && rm -rf "$CARGO_HOME"
 fi
 
 mkdir -p $PREFIX/etc/conda/activate.d
