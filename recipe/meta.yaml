@@ -32,6 +32,8 @@ requirements:   # [not osx or not arm64]
     - cmake  # [unix and not arm64]
     # libprotobuf is on build, not host, since we only need protoc
     - libprotobuf  # [not osx or not arm64]
+    # on linux cross-builds, we need additional build deps for patched cargo
+    - zlib         # [linux and aarch64]
   run:   # [osx and x86_64]
     - __osx >={{ MACOSX_DEPLOYMENT_TARGET }}  # [osx and x86_64]
 

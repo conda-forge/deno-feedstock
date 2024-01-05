@@ -22,9 +22,9 @@ else
     if [[ "$CONDA_TOOLCHAIN_BUILD" != "$CONDA_TOOLCHAIN_HOST" ]]; then
         echo "Building for target $CARGO_BUILD_TARGET" >&2
         echo "Building patched cargo" >&2
-        (cd cargo-cross && cargo build --release --features all-static)
+        (cd cargo-cross && cargo build --release --features all-static --target x86_64-unknown-linux-gnu)
         CARGO="$PWD/cargo-cross/target/release/cargo"
-        
+
         # we know what we're doing lol
         export DENO_SKIP_CROSS_BUILD_CHECK=1
         # this var screws up libffi builds, we need both build & host builds
