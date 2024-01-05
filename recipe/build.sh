@@ -35,9 +35,7 @@ else
         # set up the cross-build things
         export CARGO_CROSS_BUILD_CRATES=deno_runtime:deno
         export CARGO_CROSS_BUILD_RS=deno_runtime/build.rs:deno/build.rs
-        # right now we only support arm cross builds, update later if we do more
-        # but we don't need to set this, build works with binfmt-misc
-        # export CARGO_CROSS_BUILD_RUN="qemu-aarch64"
+        export CARGO_CROSS_BUILD_RUN="$RECIPE_DIR/cross-run.sh"
     else
         CARGO=cargo
     fi
