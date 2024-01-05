@@ -9,12 +9,16 @@ source:
     sha256: fa747a8e26cd198f09d9d73ba6eaa111e843d28a896699489a665b5b39491437  # [not osx or not arm64]
     patches:   # [not osx or not arm64]
       - 01-fix-libffi-msvc.patch     # [not osx or not arm64]
-      - 02-cross-build-source.patch   # [not osx or not arm64]
+  - url: https://github.com/rust-lang/cargo/archive/refs/tags/0.75.0.tar.gz   # [linux and aarch64]
+    sha256: d6b9512bca4b4d692a242188bfe83e1b696c44903007b7b48a56b287d01c063b  # [linux and aarch64]
+    folder: cargo-cross                                                       # [linux and aarch64]
+    patches:                                                                  # [linux and aarch64]
+      - cargo-cross-build.patch                                               # [linux and aarch64]
   - url: https://github.com/denoland/deno/releases/download/v{{ version }}/deno-aarch64-apple-darwin.zip  # [osx and arm64]
     sha256: be7f05e5784bbd4d2155981e70d40a1c4b4ebbc9d1346d94f7028d7e03243a0f  # [osx and arm64]
 
 build:
-  number: 2
+  number: 3
 
 requirements:   # [not osx or not arm64]
   build:   # [not osx or not arm64]
@@ -28,6 +32,11 @@ requirements:   # [not osx or not arm64]
     - cmake  # [unix and not arm64]
     # libprotobuf is on build, not host, since we only need protoc
     - libprotobuf  # [not osx or not arm64]
+    # on linux cross-builds, we need additional build deps for patched cargo
+    - zlib         # [linux and aarch64]
+  # cross-builds also need host libgcc to run the cross-built files
+  host:            # [linux and aarch64]
+    - libgcc-ng    # [linux and aarch64]
   run:   # [osx and x86_64]
     - __osx >={{ MACOSX_DEPLOYMENT_TARGET }}  # [osx and x86_64]
 
@@ -39,7 +48,7 @@ test:
     - deno run https://examples.deno.land/hello-world.ts
     - if [ "$DENO_INSTALL_ROOT" != "$PREFIX" ]; then echo "DENO_INTALL_ROOT var not set correctly" && exit 1; fi    # [unix]
     - IF "%DENO_INSTALL_ROOT:/=\%" NEQ "%PREFIX:/=\%\Library" exit 1    # [win]
-    - deno run test-build-arch.js   # [x86_64]
+    - deno run test-build-arch.js
 
 about:
   home: https://deno.land
