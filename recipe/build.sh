@@ -18,6 +18,9 @@ else
         fi
     fi
 
+    # turn down LTO for all builds, it takes forever
+    export CARGO_PROFILE_RELEASE_LTO=thin
+
     build_args=
     if [[ "$CONDA_TOOLCHAIN_BUILD" != "$CONDA_TOOLCHAIN_HOST" ]]; then
         echo "Building for target $CARGO_BUILD_TARGET" >&2
@@ -29,8 +32,6 @@ else
         export DENO_SKIP_CROSS_BUILD_CHECK=1
         # this var screws up libffi builds, we need both build & host builds
         unset host_alias
-        # for cross-builds turn down LTO, it takes forever
-        export CARGO_PROFILE_RELEASE_LTO=thin
 
         # set up the cross-build things
         export CARGO_CROSS_BUILD_CRATES=deno_runtime:deno
