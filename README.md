@@ -3,23 +3,6 @@ About deno-feedstock
 
 Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/deno-feedstock/blob/main/LICENSE.txt)
 
-
-About deno
-----------
-
-Home: https://deno.land
-
-Package license: MIT
-
-Summary: A simple, modern and secure runtime for JavaScript and TypeScript that uses V8 and is built in Rust
-
-Development: https://github.com/denoland/deno
-
-Documentation: https://deno.land/manual
-
-About deno
-----------
-
 Home: https://deno.land
 
 Package license: MIT
