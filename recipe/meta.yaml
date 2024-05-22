@@ -45,7 +45,7 @@ test:
     - test-build-arch.js
   commands:
     - deno --help
-    - deno run https://examples.deno.land/hello-world.ts
+    - deno run https://raw.githubusercontent.com/denoland/deno-docs/main/by-example/hello-world.ts
     - if [ "$DENO_INSTALL_ROOT" != "$PREFIX" ]; then echo "DENO_INTALL_ROOT var not set correctly" && exit 1; fi    # [unix]
     - IF "%DENO_INSTALL_ROOT:/=\%" NEQ "%PREFIX:/=\%\Library" exit 1    # [win]
     - deno run test-build-arch.js
