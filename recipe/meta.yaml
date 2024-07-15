@@ -7,8 +7,8 @@ package:
 source:
   - url: https://github.com/denoland/deno/releases/download/v{{ version }}/deno_src.tar.gz  # [not osx or not arm64]
     sha256: d8d74295d2f0a1362a2d03a452f522d8e251fb63d186365aa4be0516fc010c01  # [not osx or not arm64]
-    patches:   # [not osx or not arm64]
-      - 01-fix-libffi-msvc.patch     # [not osx or not arm64]
+    patches:   # [win]
+      - 01-fix-libffi-msvc.patch     # [win]
   - url: https://github.com/rust-lang/cargo/archive/refs/tags/0.75.0.tar.gz  # [linux and aarch64]
     sha256: d6b9512bca4b4d692a242188bfe83e1b696c44903007b7b48a56b287d01c063b  # [linux and aarch64]
     folder: cargo-cross  # [linux and aarch64]
