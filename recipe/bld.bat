@@ -4,8 +4,8 @@ if errorlevel 1 exit 1
 set CARGO_INCREMENTAL=off
 rem turn down LTO to try to avoid OOM
 set CARGO_PROFILE_RELEASE_LTO=off
-set CARGO_PROFILE_OPT_LEVEL=1
-set CARGO_PROFILE_CODEGEN_UNITS=8
+set CARGO_PROFILE_RELEASE_OPT_LEVEL=1
+set CARGO_PROFILE_RELEASE_CODEGEN_UNITS=4
 echo Building Deno binary
 cargo build --release --no-default-features -v
 if errorlevel 1 exit 1
