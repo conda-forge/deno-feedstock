@@ -18,7 +18,7 @@ source:
     sha256: 36a37289ceaf1cf52df3c748dab47bf31dfb374fe5485125732de66a859b3589  # [osx and arm64]
 
 build:
-  number: 0
+  number: 1
 
 requirements:   # [not osx or not arm64]
   build:   # [not osx or not arm64]
@@ -37,7 +37,7 @@ requirements:   # [not osx or not arm64]
     - zlib         # [linux and aarch64]
   # cross-builds also need host libgcc to run the cross-built files
   host:   # [linux and aarch64]
-    - libgcc-ng    # [linux and aarch64]
+    - libgcc    # [linux and aarch64]
   run:   # [osx and x86_64]
 
 test:
