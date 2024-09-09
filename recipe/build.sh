@@ -40,8 +40,6 @@ else
     else
         CARGO=cargo
     fi
-    echo "fixing syn dep"
-    cargo update 'syn@2.0'
     echo "$CARGO build --release $build_args" >&2
     $CARGO build --release $build_args
 
