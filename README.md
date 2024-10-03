@@ -200,6 +200,3 @@ Feedstock Maintainers
 * [@mdekstrand](https://github.com/mdekstrand/)
 * [@msarahan](https://github.com/msarahan/)
 
-
-<!-- dummy commit to enable rerendering -->
-
