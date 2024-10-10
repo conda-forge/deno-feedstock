@@ -15,7 +15,7 @@ source:
     patches:   # [linux and aarch64]
       - cargo-cross-build.patch                                               # [linux and aarch64]
   - url: https://github.com/denoland/deno/releases/download/v{{ version }}/deno-aarch64-apple-darwin.zip  # [osx and arm64]
-    sha256: a2d8bc7f3599c951b61176cf859baf56113556c014856862ae0609ad069a658c  # [osx and arm64]
+    sha256: ad122b1c8c823378469fb4972c0cc6dafc01353dfa5c7303d199bdc1dee9d5e9  # [osx and arm64]
 
 build:
   number: 0
