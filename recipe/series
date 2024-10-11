@@ -1,3 +1,2 @@
-# This series applies on Git commit 5b96f7bf21392620f0047687ec3b75b25b7ea9f2
+# This series applies on Git commit a62c7e036ab6851c0293f407ead635a7331445b7
 01-fix-libffi-msvc.patch
-02-cross-build-source.patch
