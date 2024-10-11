@@ -1,5 +1,5 @@
 c_compiler:
-- gcc
+- clang
 c_compiler_version:
 - '13'
 c_stdlib:
