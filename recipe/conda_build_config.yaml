@@ -1,3 +1,5 @@
+c_compiler:                # [osx or linux]
+  - clang                  # [osx or linux]
 c_stdlib_version:          # [osx]
   - "11.0"                 # [osx]
 MACOSX_SDK_VERSION:        # [osx]
