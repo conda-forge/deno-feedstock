@@ -8,16 +8,16 @@ From: Michael Ekstrand <md@ekstrandom.net>
  1 file changed, 3 insertions(+)
 
 diff --git a/Cargo.toml b/Cargo.toml
-index 84c117bc5..cb7318162 100644
+index d811d44b5..4d6c61e32 100644
 --- a/Cargo.toml
 +++ b/Cargo.toml
-@@ -187,6 +187,9 @@ winres = "=0.1.12"
- winapi = "=0.3.9"
- windows-sys = { version = "0.48.0", features = ["Win32_Media"] }
+@@ -228,6 +228,9 @@ winapi = "=0.3.9"
+ windows-sys = { version = "0.52.0", features = ["Win32_Foundation", "Win32_Media", "Win32_Storage_FileSystem", "Win32_System_IO", "Win32_System_WindowsProgramming", "Wdk", "Wdk_System", "Wdk_System_SystemInformation", "Win32_Security", "Win32_System_Pipes", "Wdk_Storage_FileSystem", "Win32_System_Registry", "Win32_System_Kernel"] }
+ winres = "=0.1.12"
  
 +[patch.crates-io]
 +libffi-sys = { git = "https://github.com/tov/libffi-rs", branch = "master" }
 +
- # NB: the `bench` and `release` profiles must remain EXACTLY the same.
  [profile.release]
  codegen-units = 1
+ incremental = true

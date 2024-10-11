@@ -1,7 +1,11 @@
-c_stdlib_version:          # [osx]
-  - "11.0"                 # [osx]
-MACOSX_SDK_VERSION:        # [osx]
-  - "11.3"                 # [osx and arm64]
-  - "11.0"                 # [osx and x86_64]
+c_compiler:                 # [linux]
+  - clang                   # [linux]
+c_compiler_version:         # [linux]
+  - 18                      # [linux]
+c_stdlib_version:           # [osx]
+  - "11.0"                  # [osx]
+MACOSX_SDK_VERSION:         # [osx]
+  - "11.3"                  # [osx and arm64]
+  - "11.0"                  # [osx and x86_64]
 rust_compiler_version:
   - 1.80.1
