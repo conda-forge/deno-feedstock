@@ -35,10 +35,10 @@ requirements:   # [not osx or not arm64]
     - libprotobuf  # [not osx or not arm64]
     # on linux cross-builds, we need additional build deps for patched cargo
     - zlib         # [linux and aarch64]
+    - clang     # [linux and x86_64]
   # cross-builds also need host libgcc to run the cross-built files
   host:   # [linux]
     - libgcc    # [linux and aarch64]
-    - clang     # [linux and x86_64]
   run:   # [osx and x86_64]
 
 test:
