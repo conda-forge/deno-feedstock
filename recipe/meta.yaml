@@ -17,7 +17,7 @@ source:
     folder: target/prebuilt # [linux and aarch64]
 
 build:
-  number: 0
+  number: 1
 
 requirements:   # [not arm64]
   build:
