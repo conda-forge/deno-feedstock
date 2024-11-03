@@ -38,7 +38,8 @@ requirements:
   # cross-builds also need host libgcc to run the cross-built files
   host:   # [linux]
     - libgcc # [linux and aarch64]
-  run:   # [osx and x86_64]
+  run:
+    - libgcc # [linux and aarch64]
 
 test:
   files:
