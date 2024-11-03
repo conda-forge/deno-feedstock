@@ -17,6 +17,8 @@ echo "unset DENO_INSTALL_ROOT" > "${PREFIX}/etc/conda/deactivate.d/deno.sh"
 if [ -x target/prebuilt/deno ]; then
     echo "Copying prebuilt binary"
     cp target/prebuilt/deno "$PREFIX/bin"
+    echo "Inspecting binary dependencies"
+    ldd "$PREFIX/bin/deno"
 else
     if [[ "$SUBDIR" =~ ^osx.* ]]; then
         if [ "$SUBDIR" = "osx-x64" ]; then
