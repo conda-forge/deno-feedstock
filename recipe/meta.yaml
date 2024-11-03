@@ -5,36 +5,34 @@ package:
   version: {{ version }}
 
 source:
-  - url: https://github.com/denoland/deno/releases/download/v{{ version }}/deno_src.tar.gz  # [not osx or not arm64]
-    sha256: a9a8f410d46768e9b6d803f1aaeb00ed8cd8496eebea40528a97d93ab8deb0d1  # [not osx or not arm64]
+  - url: https://github.com/denoland/deno/releases/download/v{{ version }}/deno_src.tar.gz
+    sha256: a9a8f410d46768e9b6d803f1aaeb00ed8cd8496eebea40528a97d93ab8deb0d1
     patches:   # [win]
       - 01-fix-libffi-msvc.patch     # [win]
-  - url: https://github.com/rust-lang/cargo/archive/refs/tags/0.75.0.tar.gz  # [linux and aarch64]
-    sha256: d6b9512bca4b4d692a242188bfe83e1b696c44903007b7b48a56b287d01c063b  # [linux and aarch64]
-    folder: cargo-cross  # [linux and aarch64]
-    patches:   # [linux and aarch64]
-      - cargo-cross-build.patch                                               # [linux and aarch64]
   - url: https://github.com/denoland/deno/releases/download/v{{ version }}/deno-aarch64-apple-darwin.zip  # [osx and arm64]
     sha256: e2a7e6e1baa4e2724a5527211b10d50df18130ec20d89d999c6474e2a017264a  # [osx and arm64]
+    folder: target/prebuilt # [osx and arm64]
+  - url: https://github.com/denoland/deno/releases/download/v{{ version }}/deno-aarch64-unknown-linux.zip  # [linux and arm64]
+    sha256: 0ccd4a98f70f5c47a592144a5b8d6a4a2ad3ced9cb9e3dffeb6ed35130878b93  # [linux and arm64]
+    folder: target/prebuilt # [linux and arm64]
 
 build:
   number: 0
 
-requirements:   # [not osx or not arm64]
-  build:   # [not osx or not arm64]
-    - {{ compiler("rust") }}   # [not osx or not arm64]
+requirements:   # [not arm64]
+  build:
+    - {{ compiler("rust") }}   # [not arm64]
     # needs c compiler for run_exports
-    - {{ compiler("c") }}      # [not osx or not arm64]
-    - {{ stdlib("c") }}        # [not osx or not arm64]
+    - {{ compiler("c") }}      # [not arm64]
+    - {{ stdlib("c") }}        # [not arm64]
     # for some reason, test_ffi pkg needs lld on osx-arm64
     # - lld    # [osx and arm64]
-    - cargo-bundle-licenses   # [not osx or not arm64]
+    - cargo-bundle-licenses
     - make   # [unix and not arm64]
     - cmake  # [unix and not arm64]
     # libprotobuf is on build, not host, since we only need protoc
-    - libprotobuf  # [not osx or not arm64]
-    # on linux cross-builds, we need additional build deps for patched cargo
-    - zlib         # [linux and aarch64]
+    - libprotobuf  # [not arm64]
+    # dependencies for ffi
     - libclang     # [linux and x86_64]
     - llvmdev      # [linux and x86_64]
   # cross-builds also need host libgcc to run the cross-built files
@@ -57,10 +55,8 @@ about:
   license: MIT
   license_family: MIT
   license_file:
-    - LICENSE.md    # [not osx or not arm64]
-    - DENO_THIRDPARTY_LICENSES.yml    # [not osx or not arm64]
-    # the binary doesn't ship with a license. This is one taken from the github repo.
-    - LICENSE    # [osx and arm64]
+    - LICENSE.md
+    - DENO_THIRDPARTY_LICENSES.yml
   summary: A simple, modern and secure runtime for JavaScript and TypeScript that uses V8 and is built in Rust
   doc_url: https://deno.land/manual
   dev_url: https://github.com/denoland/deno
