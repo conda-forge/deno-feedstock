@@ -5,7 +5,7 @@ set -e
 mkdir -p $PREFIX/bin
 
 # bundle licenses
-cargo bundle-licenses --format yaml --output DENO_THIRDPARTY_LICENSES.yml
+cargo-bundle-licenses --format yaml --output DENO_THIRDPARTY_LICENSES.yml
 
 # set up activate/deactivate script
 mkdir -p $PREFIX/etc/conda/activate.d
@@ -14,14 +14,8 @@ echo "export DENO_INSTALL_ROOT=$PREFIX" > "${PREFIX}/etc/conda/activate.d/deno.s
 mkdir -p $PREFIX/etc/conda/deactivate.d
 echo "unset DENO_INSTALL_ROOT" > "${PREFIX}/etc/conda/deactivate.d/deno.sh"
 
-prebuilt_bin=
-case "$SUBDIR" in
-    osx-arm64|linux-aarch64)
-        prebuilt_bin="target/$SUBDIR-prebuilt/deno"
-        ;;
-esac
-
 if [ -x target/prebuilt/deno ]; then
+    echo "Copying prebuilt binary"
     cp target/prebuilt/deno "$PREFIX/bin"
 else
     if [[ "$SUBDIR" =~ ^osx.* ]]; then

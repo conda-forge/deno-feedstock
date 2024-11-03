@@ -12,32 +12,31 @@ source:
   - url: https://github.com/denoland/deno/releases/download/v{{ version }}/deno-aarch64-apple-darwin.zip  # [osx and arm64]
     sha256: e2a7e6e1baa4e2724a5527211b10d50df18130ec20d89d999c6474e2a017264a  # [osx and arm64]
     folder: target/prebuilt # [osx and arm64]
-  - url: https://github.com/denoland/deno/releases/download/v{{ version }}/deno-aarch64-unknown-linux.zip  # [linux and arm64]
-    sha256: 0ccd4a98f70f5c47a592144a5b8d6a4a2ad3ced9cb9e3dffeb6ed35130878b93  # [linux and arm64]
-    folder: target/prebuilt # [linux and arm64]
+  - url: https://github.com/denoland/deno/releases/download/v{{ version }}/deno-aarch64-unknown-linux-gnu.zip  # [linux and aarch64]
+    sha256: 0ccd4a98f70f5c47a592144a5b8d6a4a2ad3ced9cb9e3dffeb6ed35130878b93  # [linux and aarch64]
+    folder: target/prebuilt # [linux and aarch64]
 
 build:
   number: 0
 
 requirements:   # [not arm64]
   build:
-    - {{ compiler("rust") }}   # [not arm64]
+    - {{ compiler("rust") }}
     # needs c compiler for run_exports
-    - {{ compiler("c") }}      # [not arm64]
-    - {{ stdlib("c") }}        # [not arm64]
+    - {{ compiler("c") }}      # [x86_64]
+    - {{ stdlib("c") }}        # [x86_64]
     # for some reason, test_ffi pkg needs lld on osx-arm64
     # - lld    # [osx and arm64]
     - cargo-bundle-licenses
-    - make   # [unix and not arm64]
-    - cmake  # [unix and not arm64]
+    - make   # [unix and x86_64]
+    - cmake  # [unix and x86_64]
     # libprotobuf is on build, not host, since we only need protoc
-    - libprotobuf  # [not arm64]
+    - libprotobuf  # [x86_64]
     # dependencies for ffi
     - libclang     # [linux and x86_64]
     - llvmdev      # [linux and x86_64]
   # cross-builds also need host libgcc to run the cross-built files
   host:   # [linux]
-    - libgcc    # [linux and aarch64]
   run:   # [osx and x86_64]
 
 test:
