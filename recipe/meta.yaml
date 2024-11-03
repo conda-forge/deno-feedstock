@@ -19,7 +19,7 @@ source:
 build:
   number: 1
 
-requirements:   # [not arm64]
+requirements:
   build:
     - {{ compiler("rust") }}
     # needs c compiler for run_exports
