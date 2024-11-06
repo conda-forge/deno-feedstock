@@ -1,2 +1,3 @@
-# This series applies on Git commit a62c7e036ab6851c0293f407ead635a7331445b7
+# This series applies on GIT commit 78a799b4947461eb5c6092295cbcdabfe94053f7
 01-fix-libffi-msvc.patch
+02-disable-snapshotting.patch

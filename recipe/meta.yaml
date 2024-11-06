@@ -7,14 +7,12 @@ package:
 source:
   - url: https://github.com/denoland/deno/releases/download/v{{ version }}/deno_src.tar.gz
     sha256: a9a8f410d46768e9b6d803f1aaeb00ed8cd8496eebea40528a97d93ab8deb0d1
-    patches:   # [win]
+    patches:
       - 01-fix-libffi-msvc.patch     # [win]
+      - 02-disable-snapshot.patch    # [linux and aarch64]
   - url: https://github.com/denoland/deno/releases/download/v{{ version }}/deno-aarch64-apple-darwin.zip  # [osx and arm64]
     sha256: e2a7e6e1baa4e2724a5527211b10d50df18130ec20d89d999c6474e2a017264a  # [osx and arm64]
     folder: target/prebuilt  # [osx and arm64]
-  - url: https://github.com/denoland/deno/releases/download/v{{ version }}/deno-aarch64-unknown-linux-gnu.zip  # [linux and aarch64]
-    sha256: 0ccd4a98f70f5c47a592144a5b8d6a4a2ad3ced9cb9e3dffeb6ed35130878b93  # [linux and aarch64]
-    folder: target/prebuilt  # [linux and aarch64]
 
 build:
   number: 1
