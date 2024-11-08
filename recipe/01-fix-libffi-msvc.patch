@@ -8,7 +8,7 @@ From: Michael Ekstrand <md@ekstrandom.net>
  1 file changed, 3 insertions(+)
 
 diff --git a/Cargo.toml b/Cargo.toml
-index 13140b65d..061caff44 100644
+index aab9e149b..431408754 100644
 --- a/Cargo.toml
 +++ b/Cargo.toml
 @@ -229,6 +229,9 @@ winapi = "=0.3.9"

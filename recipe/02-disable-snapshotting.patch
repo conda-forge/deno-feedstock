@@ -1,4 +1,4 @@
-disable snapshotting
+disable snapshotting in builds
 
 From: Michael Ekstrand <mdekstrand@drexel.edu>
 
@@ -8,7 +8,7 @@ From: Michael Ekstrand <mdekstrand@drexel.edu>
  1 file changed, 4 insertions(+), 4 deletions(-)
 
 diff --git a/cli/Cargo.toml b/cli/Cargo.toml
-index 32229d816..e4ecfeaab 100644
+index ef92947d2..c5b727615 100644
 --- a/cli/Cargo.toml
 +++ b/cli/Cargo.toml
 @@ -54,8 +54,8 @@ hmr = ["deno_runtime/hmr"]
@@ -25,12 +25,12 @@ index 32229d816..e4ecfeaab 100644
 @@ -71,7 +71,7 @@ winres.workspace = true
  deno_ast = { workspace = true, features = ["bundler", "cjs", "codegen", "proposal", "react", "sourcemap", "transforms", "typescript", "view", "visit"] }
  deno_cache_dir = { workspace = true }
- deno_config = { version = "=0.38.2", features = ["workspace", "sync"] }
+ deno_config = { version = "=0.37.2", features = ["workspace", "sync"] }
 -deno_core = { workspace = true, features = ["include_js_files_for_snapshotting"] }
 +deno_core = { workspace = true }
- deno_doc = { version = "0.156.0", default-features = false, features = ["rust", "html", "syntect"] }
- deno_graph = { version = "=0.84.1" }
- deno_lint = { version = "=0.68.0", features = ["docs"] }
+ deno_doc = { version = "0.154.0", default-features = false, features = ["rust", "html", "syntect"] }
+ deno_graph = { version = "=0.83.4" }
+ deno_lint = { version = "=0.67.0", features = ["docs"] }
 @@ -80,7 +80,7 @@ deno_npm.workspace = true
  deno_package_json.workspace = true
  deno_path_util.workspace = true
