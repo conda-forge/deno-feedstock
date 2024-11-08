@@ -21,7 +21,7 @@ requirements:
   build:
     - {{ compiler("rust") }}
     # needs c compiler for run_exports
-    - {{ compiler("c") }}      # [x86_64]
+    - {{ compiler("c") }}      # [x86_64 or linux]
     - {{ stdlib("c") }}        # [x86_64 or linux]
     # for some reason, test_ffi pkg needs lld on osx-arm64
     # - lld    # [osx and arm64]
