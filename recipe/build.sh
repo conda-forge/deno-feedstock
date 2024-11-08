@@ -48,7 +48,7 @@ else
         # export CARGO_CROSS_BUILD_RS=deno_runtime/build.rs:deno/build.rs
         # export CARGO_CROSS_BUILD_RUN="$RECIPE_DIR/cross-run.sh"
         # the hot module reloading feature gets Deno working without snapshots.
-        build_args="--target $CONDA_BUILD_TARGET --features hmr"
+        build_args="--target $CARGO_BUILD_TARGET --features hmr"
     else
         CARGO=cargo
     fi
