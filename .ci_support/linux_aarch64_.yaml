@@ -1,3 +1,5 @@
+BUILD:
+- aarch64-conda_cos7-linux-gnu
 c_compiler:
 - clang
 c_compiler_version:
@@ -6,6 +8,8 @@ c_stdlib:
 - sysroot
 c_stdlib_version:
 - '2.17'
+cdt_arch:
+- aarch64
 cdt_name:
 - conda
 channel_sources:
@@ -14,11 +18,9 @@ channel_targets:
 - conda-forge main
 docker_image:
 - quay.io/condaforge/linux-anvil-cos7-x86_64
-libprotobuf:
-- 5.27.5
 rust_compiler:
 - rust
 rust_compiler_version:
 - 1.80.1
 target_platform:
-- linux-64
+- linux-aarch64
