@@ -5,7 +5,7 @@ MACOSX_SDK_VERSION:
 c_compiler:
 - clang
 c_compiler_version:
-- '17'
+- '18'
 c_stdlib:
 - macosx_deployment_target
 c_stdlib_version:
@@ -21,6 +21,6 @@ macos_machine:
 rust_compiler:
 - rust
 rust_compiler_version:
-- 1.80.1
+- 1.82.0
 target_platform:
 - osx-64
