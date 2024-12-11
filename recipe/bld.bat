@@ -7,7 +7,7 @@ set CARGO_PROFILE_RELEASE_LTO=off
 set CARGO_PROFILE_RELEASE_OPT_LEVEL=1
 set CARGO_PROFILE_RELEASE_CODEGEN_UNITS=4
 echo Building Deno binary
-cargo build --release -p cli
+cargo build --release -p deno_cli
 if errorlevel 1 exit 1
 
 mkdir %LIBRARY_BIN%
