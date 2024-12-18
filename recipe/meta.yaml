@@ -9,16 +9,16 @@ source:
     sha256: f48758771a456db3fabdf8665a4576f6d9dc24ff6d75a82f120d093b0307efd1  # [not osx or not arm64]
     patches:   # [win]
       - 01-fix-libffi-msvc.patch     # [win]
-  - url: https://github.com/rust-lang/cargo/archive/refs/tags/0.75.0.tar.gz  # [linux and aarch64]
-    sha256: d6b9512bca4b4d692a242188bfe83e1b696c44903007b7b48a56b287d01c063b  # [linux and aarch64]
-    folder: cargo-cross  # [linux and aarch64]
-    patches:   # [linux and aarch64]
-      - cargo-cross-build.patch                                               # [linux and aarch64]
+  # - url: https://github.com/rust-lang/cargo/archive/refs/tags/0.75.0.tar.gz  # [linux and aarch64]
+  #   sha256: d6b9512bca4b4d692a242188bfe83e1b696c44903007b7b48a56b287d01c063b  # [linux and aarch64]
+  #   folder: cargo-cross  # [linux and aarch64]
+  #   patches:   # [linux and aarch64]
+  #     - cargo-cross-build.patch                                               # [linux and aarch64]
   - url: https://github.com/denoland/deno/releases/download/v{{ version }}/deno-aarch64-apple-darwin.zip  # [osx and arm64]
     sha256: 65efe137ee28846427ae7b6c5135439744065ad59ccb3c8cd19e69af066e2db0  # [osx and arm64]
 
 build:
-  number: 0
+  number: 1
 
 requirements:   # [not osx or not arm64]
   build:   # [not osx or not arm64]
@@ -34,13 +34,13 @@ requirements:   # [not osx or not arm64]
     # libprotobuf is on build, not host, since we only need protoc
     - libprotobuf  # [not osx or not arm64]
     # on linux cross-builds, we need additional build deps for patched cargo
-    - zlib         # [linux and aarch64]
+    # - zlib         # [linux and aarch64]
     - libclang     # [linux and x86_64]
     - llvmdev      # [linux and x86_64]
   # cross-builds also need host libgcc to run the cross-built files
-  host:   # [linux]
-    - libgcc    # [linux and aarch64]
-  run:   # [osx and x86_64]
+  # host:   # [linux]
+  #  - libgcc    # [linux and aarch64]
+  # run:   # [osx and x86_64]
 
 test:
   files:
