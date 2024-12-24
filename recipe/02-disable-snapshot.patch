@@ -1,0 +1,63 @@
+Disable snapshotting in default build
+
+From: Michael Ekstrand <mdekstrand@drexel.edu>
+
+
+---
+ Cargo.lock     |    3 +--
+ cli/Cargo.toml |    4 ++--
+ cli/build.rs   |   12 ------------
+ 3 files changed, 3 insertions(+), 16 deletions(-)
+
+diff --git a/Cargo.lock b/Cargo.lock
+index d82040854..31293c264 100644
+--- a/Cargo.lock
++++ b/Cargo.lock
+@@ -4556,8 +4556,7 @@ dependencies = [
+ [[package]]
+ name = "libffi-sys"
+ version = "2.3.0"
+-source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "f36115160c57e8529781b4183c2bb51fdc1f6d6d1ed345591d84be7703befb3c"
++source = "git+https://github.com/tov/libffi-rs?branch=master#d0704d634b6f3ffef5b6fc7e07fe965a1cff5c7b"
+ dependencies = [
+  "cc",
+ ]
+diff --git a/cli/Cargo.toml b/cli/Cargo.toml
+index cf76dfe69..eb42b2b97 100644
+--- a/cli/Cargo.toml
++++ b/cli/Cargo.toml
+@@ -54,8 +54,8 @@ hmr = ["deno_runtime/hmr"]
+ __vendored_zlib_ng = ["flate2/zlib-ng-compat", "libz-sys/zlib-ng"]
+ 
+ [build-dependencies]
+-deno_runtime = { workspace = true, features = ["include_js_files_for_snapshotting", "only_snapshotted_js_sources"] }
+-deno_core = { workspace = true, features = ["include_js_files_for_snapshotting"] }
++deno_runtime = { workspace = true }
++deno_core = { workspace = true }
+ lazy-regex.workspace = true
+ serde.workspace = true
+ serde_json.workspace = true
+diff --git a/cli/build.rs b/cli/build.rs
+index 3d9866128..4ac8d9c8f 100644
+--- a/cli/build.rs
++++ b/cli/build.rs
+@@ -418,18 +418,6 @@ fn main() {
+     println!("cargo:rustc-link-arg-bin=denort=delayimp.lib");
+   }
+ 
+-  let c = PathBuf::from(env::var_os("CARGO_MANIFEST_DIR").unwrap());
+-  let o = PathBuf::from(env::var_os("OUT_DIR").unwrap());
+-
+-  let compiler_snapshot_path = o.join("COMPILER_SNAPSHOT.bin");
+-  ts::create_compiler_snapshot(compiler_snapshot_path, &c);
+-
+-  #[cfg(not(feature = "hmr"))]
+-  {
+-    let cli_snapshot_path = o.join("CLI_SNAPSHOT.bin");
+-    create_cli_snapshot(cli_snapshot_path);
+-  }
+-
+   #[cfg(target_os = "windows")]
+   {
+     let mut res = winres::WindowsResource::new();

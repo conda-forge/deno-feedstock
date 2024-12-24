@@ -1,6 +1,6 @@
-fix libffi builds on MSVC
 
-From: Michael Ekstrand <md@ekstrandom.net>
+
+From: Michael Ekstrand <mdekstrand@drexel.edu>
 
 
 ---
@@ -8,11 +8,11 @@ From: Michael Ekstrand <md@ekstrandom.net>
  1 file changed, 3 insertions(+)
 
 diff --git a/Cargo.toml b/Cargo.toml
-index d811d44b5..4d6c61e32 100644
+index 712bdae8b..3003db59f 100644
 --- a/Cargo.toml
 +++ b/Cargo.toml
-@@ -228,6 +228,9 @@ winapi = "=0.3.9"
- windows-sys = { version = "0.52.0", features = ["Win32_Foundation", "Win32_Media", "Win32_Storage_FileSystem", "Win32_System_IO", "Win32_System_WindowsProgramming", "Wdk", "Wdk_System", "Wdk_System_SystemInformation", "Win32_Security", "Win32_System_Pipes", "Wdk_Storage_FileSystem", "Win32_System_Registry", "Win32_System_Kernel"] }
+@@ -243,6 +243,9 @@ winapi = "=0.3.9"
+ windows-sys = { version = "0.59.0", features = ["Win32_Foundation", "Win32_Media", "Win32_Storage_FileSystem", "Win32_System_IO", "Win32_System_WindowsProgramming", "Wdk", "Wdk_System", "Wdk_System_SystemInformation", "Win32_Security", "Win32_System_Pipes", "Wdk_Storage_FileSystem", "Win32_System_Registry", "Win32_System_Kernel", "Win32_System_Threading", "Win32_UI", "Win32_UI_Shell"] }
  winres = "=0.1.12"
  
 +[patch.crates-io]
