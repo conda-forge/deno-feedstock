@@ -1,11 +1,19 @@
 c_compiler:
-- vs2019
+- clang
+c_compiler_version:
+- '18'
 c_stdlib:
-- vs
+- sysroot
+c_stdlib_version:
+- '2.17'
+cdt_name:
+- conda
 channel_sources:
 - conda-forge
 channel_targets:
 - conda-forge main
+docker_image:
+- quay.io/condaforge/linux-anvil-x86_64:alma9
 libprotobuf:
 - 5.28.2
 rust_compiler:
@@ -13,4 +21,6 @@ rust_compiler:
 rust_compiler_version:
 - 1.82.0
 target_platform:
-- win-64
+- linux-aarch64
+zlib:
+- '1'
