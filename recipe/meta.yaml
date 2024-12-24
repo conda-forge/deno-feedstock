@@ -14,7 +14,7 @@ source:
     sha256: 65efe137ee28846427ae7b6c5135439744065ad59ccb3c8cd19e69af066e2db0  # [osx and arm64]
 
 build:
-  number: 0
+  number: 1
 
 requirements:   # [not osx or not arm64]
   build:   # [not osx or not arm64]
