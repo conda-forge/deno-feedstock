@@ -7,7 +7,7 @@ package:
 source:
   - url: https://github.com/denoland/deno/releases/download/v{{ version }}/deno_src.tar.gz  # [not osx or not arm64]
     sha256: f48758771a456db3fabdf8665a4576f6d9dc24ff6d75a82f120d093b0307efd1  # [not osx or not arm64]
-    patches:   # [win]
+    patches:
       - 01-fix-libffi-msvc.patch     # [win]
       - 02-disable-snapshot.patch    # [linux and aarch64]
   - url: https://github.com/denoland/deno/releases/download/v{{ version }}/deno-aarch64-apple-darwin.zip  # [osx and arm64]
