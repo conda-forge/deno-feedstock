@@ -7,7 +7,7 @@ channel_sources:
 channel_targets:
 - conda-forge main
 libprotobuf:
-- 5.28.2
+- 5.28.3
 rust_compiler:
 - rust
 rust_compiler_version:
