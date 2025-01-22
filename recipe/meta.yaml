@@ -1,4 +1,4 @@
-{% set version = "2.1.6" %}
+{% set version = "2.1.7" %}
 
 package:
   name: deno
@@ -6,7 +6,7 @@ package:
 
 source:
   - url: https://github.com/denoland/deno/releases/download/v{{ version }}/deno_src.tar.gz  # [not osx or not arm64]
-    sha256: 1a6b88bbebd006b92f8522553f7fbca97e32420c2ce7685e3578bfa75cc1b8fc  # [not osx or not arm64]
+    sha256: 1dda00e42dfc858f9e6858101d743b34bab80e0235532a504311dd48d1b38973  # [not osx or not arm64]
     patches:   # [win]
       - 01-fix-libffi-msvc.patch     # [win]
   - url: https://github.com/rust-lang/cargo/archive/refs/tags/0.75.0.tar.gz  # [linux and aarch64]
@@ -15,7 +15,7 @@ source:
     patches:   # [linux and aarch64]
       - cargo-cross-build.patch                                               # [linux and aarch64]
   - url: https://github.com/denoland/deno/releases/download/v{{ version }}/deno-aarch64-apple-darwin.zip  # [osx and arm64]
-    sha256: c6c6ce0cf67e6de7d2064033c654d9d739eb1820a4f88bccaf8f8b61f16a15b5  # [osx and arm64]
+    sha256: 51280cbbac5c84aee6346737e46667be8919ada2d55e5707704c999be3ef6c41  # [osx and arm64]
 
 build:
   number: 0
