@@ -40,6 +40,7 @@ requirements:   # [not osx or not arm64]
   # cross-builds also need host libgcc to run the cross-built files
   host:   # [linux]
     - libgcc    # [linux and aarch64]
+    - zlib
   run:   # [osx and x86_64]
 
 test:
