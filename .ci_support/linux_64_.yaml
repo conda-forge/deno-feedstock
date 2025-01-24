@@ -22,3 +22,5 @@ rust_compiler_version:
 - 1.82.0
 target_platform:
 - linux-64
+zlib:
+- '1'
