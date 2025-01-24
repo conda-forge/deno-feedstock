@@ -9,8 +9,8 @@ source:
     sha256: b65f55840d7bfa3fb16ae65ca45cdc33dc38427dca625c80411c07a466f5cd2e  # [not osx or not arm64]
     patches:   # [win]
       - 01-fix-libffi-msvc.patch     # [win]
-  - url: https://github.com/rust-lang/cargo/archive/refs/tags/0.75.0.tar.gz  # [linux and aarch64]
-    sha256: d6b9512bca4b4d692a242188bfe83e1b696c44903007b7b48a56b287d01c063b  # [linux and aarch64]
+  - url: https://github.com/rust-lang/cargo/archive/refs/tags/0.85.0.tar.gz  # [linux and aarch64]
+    sha256: 5e708627470d41be5d615b0f064d5cbe40509cab62e751a2876936fb53ca0bcd  # [linux and aarch64]
     folder: cargo-cross  # [linux and aarch64]
     patches:   # [linux and aarch64]
       - cargo-cross-build.patch                                               # [linux and aarch64]
@@ -18,7 +18,7 @@ source:
     sha256: a0aff1d56948f030d0596085f2db0374670331c848bb642b25e21fab986b6c9f  # [osx and arm64]
 
 build:
-  number: 0
+  number: 1
 
 requirements:
   build:   # [not osx or not arm64]
