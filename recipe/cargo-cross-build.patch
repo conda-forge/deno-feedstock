@@ -31,7 +31,7 @@ index 000000000..86a2636c5
 +$1
 diff --git a/src/cargo/core/compiler/cross_build.rs b/src/cargo/core/compiler/cross_build.rs
 new file mode 100644
-index 000000000..122ea26c9
+index 000000000..3949e77cd
 --- /dev/null
 +++ b/src/cargo/core/compiler/cross_build.rs
 @@ -0,0 +1,151 @@
@@ -41,7 +41,7 @@ index 000000000..122ea26c9
 +
 +use std::env;
 +
-+use log::debug;
++use tracing::debug;
 +
 +use crate::core::compiler::compile_kind::CompileKind;
 +use crate::core::manifest::Target;
