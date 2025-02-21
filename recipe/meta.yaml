@@ -9,11 +9,6 @@ source:
     sha256: 4dd4cf474b0cf76b3d3989ca855432da0c41667a412e51f8223d1ff806c44754  # [not osx or not arm64]
     patches:   # [win]
       - 01-fix-libffi-msvc.patch     # [win]
-  - url: https://github.com/rust-lang/cargo/archive/refs/tags/0.75.0.tar.gz  # [linux and aarch64]
-    sha256: d6b9512bca4b4d692a242188bfe83e1b696c44903007b7b48a56b287d01c063b  # [linux and aarch64]
-    folder: cargo-cross  # [linux and aarch64]
-    patches:   # [linux and aarch64]
-      - cargo-cross-build.patch                                               # [linux and aarch64]
   - url: https://github.com/denoland/deno/releases/download/v{{ version }}/deno-aarch64-apple-darwin.zip  # [osx and arm64]
     sha256: 2e7029ccc30e7500963d9e7519a3e20ff29941ffe730c6901b61cf58421e6f4b  # [osx and arm64]
 
