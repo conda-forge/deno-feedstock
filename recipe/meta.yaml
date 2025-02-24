@@ -29,7 +29,9 @@ requirements:
     # - lld    # [osx and arm64]
     - cargo-bundle-licenses 
     - make   # [unix and not arm64]
-    - cmake  # [unix and not arm64]
+    - cmake  # [unix and not arm64]  
+    - libclang     # [linux and x86_64]
+    - llvmdev      # [linux and x86_64]
     # libprotobuf is on build, not host, since we only need protoc
     - libprotobuf
   # cross-builds also need host libgcc to run the cross-built files
