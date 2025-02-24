@@ -32,10 +32,6 @@ requirements:
     - cmake  # [unix and not arm64]
     # libprotobuf is on build, not host, since we only need protoc
     - libprotobuf  # [not osx or not arm64]
-    # on linux cross-builds, we need additional build deps for patched cargo
-    - zlib         # [linux and aarch64]
-    - libclang     # [linux and x86_64]
-    - llvmdev      # [linux and x86_64]
   # cross-builds also need host libgcc to run the cross-built files
   host:
     - libgcc    # [linux and aarch64]

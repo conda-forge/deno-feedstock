@@ -3,8 +3,8 @@
 set -e
 
 mkdir -p $PREFIX/bin
-if [ "$SUBDIR" = "osx-arm64" ]; then
-    mv deno $PREFIX/bin
+if [ -d release-build ]; then
+    cp release-build/deno $PREFIX/bin
 else
 
     cargo bundle-licenses --format yaml --output DENO_THIRDPARTY_LICENSES.yml
