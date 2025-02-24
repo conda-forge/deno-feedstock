@@ -5,8 +5,8 @@ package:
   version: {{ version }}
 
 source:
-  - url: https://github.com/denoland/deno/releases/download/v{{ version }}/deno_src.tar.gz  # [not osx or not arm64]
-    sha256: 4dd4cf474b0cf76b3d3989ca855432da0c41667a412e51f8223d1ff806c44754  # [not osx or not arm64]
+  - url: https://github.com/denoland/deno/releases/download/v{{ version }}/deno_src.tar.gz
+    sha256: 4dd4cf474b0cf76b3d3989ca855432da0c41667a412e51f8223d1ff806c44754
     patches:   # [win]
       - 01-fix-libffi-msvc.patch     # [win]
   - url: https://github.com/denoland/deno/releases/download/v{{ version }}/deno-aarch64-unknown-linux-gnu.zip  # [linux and aarch64]
@@ -20,22 +20,22 @@ build:
   number: 1
 
 requirements:
-  build:   # [not osx or not arm64]
-    - {{ compiler("rust") }}   # [not osx or not arm64]
+  build:
+    - {{ compiler("rust") }}
     # needs c compiler for run_exports
-    - {{ compiler("c") }}      # [not osx or not arm64]
-    - {{ stdlib("c") }}        # [not osx or not arm64]
+    - {{ compiler("c") }}
+    - {{ stdlib("c") }}
     # for some reason, test_ffi pkg needs lld on osx-arm64
     # - lld    # [osx and arm64]
-    - cargo-bundle-licenses   # [not osx or not arm64]
+    - cargo-bundle-licenses 
     - make   # [unix and not arm64]
     - cmake  # [unix and not arm64]
     # libprotobuf is on build, not host, since we only need protoc
-    - libprotobuf  # [not osx or not arm64]
+    - libprotobuf
   # cross-builds also need host libgcc to run the cross-built files
   host:
     - libgcc    # [linux and aarch64]
-    - zlib
+    - zlib  # [not aarch64]
   run:   # [osx and x86_64]
 
 test:
@@ -53,10 +53,8 @@ about:
   license: MIT
   license_family: MIT
   license_file:
-    - LICENSE.md    # [not osx or not arm64]
-    - DENO_THIRDPARTY_LICENSES.yml    # [not osx or not arm64]
-    # the binary doesn't ship with a license. This is one taken from the github repo.
-    - LICENSE    # [osx and arm64]
+    - LICENSE.md
+    - DENO_THIRDPARTY_LICENSES.yml
   summary: A simple, modern and secure runtime for JavaScript and TypeScript that uses V8 and is built in Rust
   doc_url: https://deno.land/manual
   dev_url: https://github.com/denoland/deno

@@ -3,11 +3,11 @@
 set -e
 
 mkdir -p $PREFIX/bin
+cargo bundle-licenses --format yaml --output DENO_THIRDPARTY_LICENSES.yml
+
 if [ -d release-build ]; then
     cp release-build/deno $PREFIX/bin
 else
-
-    cargo bundle-licenses --format yaml --output DENO_THIRDPARTY_LICENSES.yml
     if [[ "$SUBDIR" =~ ^osx.* ]]; then
         if [ "$SUBDIR" = "osx-x64" ]; then
             export CARGO_TARGET_X86_64_APPLE_DARWIN_LINKER=$CC
