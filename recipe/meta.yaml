@@ -11,10 +11,10 @@ source:
       - 01-fix-libffi-msvc.patch     # [win]
   - url: https://github.com/denoland/deno/releases/download/v{{ version }}/deno-aarch64-unknown-linux-gnu.zip  # [linux and aarch64]
     sha256: 2de9af6894d7e9eaeb5b140c341ee8a8670f27c673f381ae27e8edc8e5dd45b7  # [linux and aarch64]
-    folder: release-build # [linux and aarch64]
+    folder: release-build  # [linux and aarch64]
   - url: https://github.com/denoland/deno/releases/download/v{{ version }}/deno-aarch64-apple-darwin.zip  # [osx and arm64]
     sha256: 2e7029ccc30e7500963d9e7519a3e20ff29941ffe730c6901b61cf58421e6f4b  # [osx and arm64]
-    folder: release-build # [osx and arm64]
+    folder: release-build  # [osx and arm64]
 
 build:
   number: 1
