@@ -11,7 +11,7 @@ libprotobuf:
 rust_compiler:
 - rust
 rust_compiler_version:
-- 1.82.0
+- 1.85.0
 target_platform:
 - win-64
 zlib:

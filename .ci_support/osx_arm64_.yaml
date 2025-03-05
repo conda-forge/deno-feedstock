@@ -13,7 +13,7 @@ macos_machine:
 rust_compiler:
 - rust
 rust_compiler_version:
-- 1.82.0
+- 1.85.0
 target_platform:
 - osx-arm64
 zlib:
