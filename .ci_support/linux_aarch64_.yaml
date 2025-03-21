@@ -19,6 +19,6 @@ libprotobuf:
 rust_compiler:
 - rust
 rust_compiler_version:
-- 1.82.0
+- 1.85.1
 target_platform:
 - linux-aarch64
