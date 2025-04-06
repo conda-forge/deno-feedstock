@@ -25,6 +25,7 @@ requirements:
     # needs c compiler for run_exports
     - {{ compiler("c") }}   # [not osx or not arm64]
     - {{ stdlib("c") }}     # [not osx or not arm64]
+    - cmake    # [win]
     # for some reason, test_ffi pkg needs lld on osx-arm64
     # - lld    # [osx and arm64]
     - cargo-bundle-licenses
