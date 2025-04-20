@@ -20,6 +20,7 @@ else
 
     # turn down LTO for all builds, it takes forever
     export CARGO_PROFILE_RELEASE_LTO=thin
+    export CARGO_PROFILE_RELEASE_SPLIT_DEBUGINFO=off
 
     build_args=
     if [[ "$CONDA_TOOLCHAIN_BUILD" != "$CONDA_TOOLCHAIN_HOST" ]]; then
