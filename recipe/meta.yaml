@@ -1,4 +1,4 @@
-{% set version = "2.2.12" %}
+{% set version = "2.3.0" %}
 
 package:
   name: deno
@@ -6,14 +6,14 @@ package:
 
 source:
   - url: https://github.com/denoland/deno/releases/download/v{{ version }}/deno_src.tar.gz
-    sha256: 7a33be8a1e16bc952d8fa80046a1c5b18bddfcaf8dfe12d988d7d1a4b4ce3fd7
+    sha256: 25b7386dbe7be2016227b0092fca88b4f7a9bbc842e0ef82e063847880aed3e3
     patches:   # [win]
       - 01-fix-libffi-msvc.patch     # [win]
   - url: https://github.com/denoland/deno/releases/download/v{{ version }}/deno-aarch64-unknown-linux-gnu.zip  # [linux and aarch64]
-    sha256: 1755f366947236c15e8f469ffdee5dce845fe78af77d404149af970ab2302074  # [linux and aarch64]
+    sha256: d8a5f61504d8071bb0f2ad87abd722b1b9f5b42789f92c51352df6db8b3821dc  # [linux and aarch64]
     folder: release-build  # [linux and aarch64]
   - url: https://github.com/denoland/deno/releases/download/v{{ version }}/deno-aarch64-apple-darwin.zip  # [osx and arm64]
-    sha256: 0dcab0cfe848cd37aba624bfa1a975ff8f7ed5ab83e61d7d32c6a3f47754ef69  # [osx and arm64]
+    sha256: 7e20764f7b15a8af24148d5547de2e20302df224f72d672b064adde1c51baa81  # [osx and arm64]
     folder: release-build  # [osx and arm64]
 
 build:
