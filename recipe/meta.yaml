@@ -25,12 +25,11 @@ requirements:
     # needs c compiler for run_exports
     - {{ compiler("c") }}   # [not osx or not arm64]
     - {{ stdlib("c") }}     # [not osx or not arm64]
-    - cmake    # [win]
+    - cmake >=3.5,<4
     # for some reason, test_ffi pkg needs lld on osx-arm64
     # - lld    # [osx and arm64]
     - cargo-bundle-licenses
     - make   # [unix and not arm64]
-    - cmake  # [unix and not arm64]  
     - libclang     # [linux and x86_64]
     - llvmdev      # [linux and x86_64]
     # libprotobuf is on build, not host, since we only need protoc
