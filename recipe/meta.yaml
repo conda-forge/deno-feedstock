@@ -1,4 +1,4 @@
-{% set version = "2.3.4" %}
+{% set version = "2.4.5" %}
 
 package:
   name: deno
@@ -6,14 +6,14 @@ package:
 
 source:
   - url: https://github.com/denoland/deno/releases/download/v{{ version }}/deno_src.tar.gz
-    sha256: 7ef6266a7523a74f0bf625df5dfb3dae2c56039ed9f01edf713cc454aba4b70e
+    sha256: a6bba626d08813c114bfcc862e69fd7202eecda97df9f349abf6cc4e38fe4e40
     patches:   # [win]
       - 01-fix-libffi-msvc.patch     # [win]
   - url: https://github.com/denoland/deno/releases/download/v{{ version }}/deno-aarch64-unknown-linux-gnu.zip  # [linux and aarch64]
-    sha256: 3c8f0d776c967c9173d8a0fcce78adac627dafde47fcf8f6907856f38d386273  # [linux and aarch64]
+    sha256: 4e3e86739fe527c6891dbfa73799a5ec1b11f45898aaebf73bf3247c2e6a53dd  # [linux and aarch64]
     folder: release-build  # [linux and aarch64]
   - url: https://github.com/denoland/deno/releases/download/v{{ version }}/deno-aarch64-apple-darwin.zip  # [osx and arm64]
-    sha256: 912f13ba486a55ba3e235bc91fddfd51e95a45598972ce026d34f206117cb14c  # [osx and arm64]
+    sha256: d21374dc6aa02b493467ec2f6d865cab95cffebb89aab242dc1acf95274681ee  # [osx and arm64]
     folder: release-build  # [osx and arm64]
 
 build:
@@ -30,7 +30,7 @@ requirements:
     # - lld    # [osx and arm64]
     - cargo-bundle-licenses
     - make   # [unix and not arm64]
-    - cmake  # [unix and not arm64]  
+    - cmake  # [unix and not arm64]
     - libclang     # [linux and x86_64]
     - llvmdev      # [linux and x86_64]
     # libprotobuf is on build, not host, since we only need protoc
