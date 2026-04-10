@@ -15,13 +15,13 @@ channel_sources:
 channel_targets:
 - conda-forge main
 libprotobuf:
-- 5.29.3
+- 6.31.1
 macos_machine:
 - x86_64-apple-darwin13.4.0
 rust_compiler:
 - rust
 rust_compiler_version:
-- 1.85.1
+- 1.90.0
 target_platform:
 - osx-64
 zlib:
