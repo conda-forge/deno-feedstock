@@ -1,45 +1,28 @@
-{% set version = "2.3.4" %}
+{% set version = "2.4.5" %}
 
 package:
   name: deno
   version: {{ version }}
 
 source:
-  - url: https://github.com/denoland/deno/releases/download/v{{ version }}/deno_src.tar.gz
-    sha256: 7ef6266a7523a74f0bf625df5dfb3dae2c56039ed9f01edf713cc454aba4b70e
-    patches:   # [win]
-      - 01-fix-libffi-msvc.patch     # [win]
-  - url: https://github.com/denoland/deno/releases/download/v{{ version }}/deno-aarch64-unknown-linux-gnu.zip  # [linux and aarch64]
-    sha256: 3c8f0d776c967c9173d8a0fcce78adac627dafde47fcf8f6907856f38d386273  # [linux and aarch64]
-    folder: release-build  # [linux and aarch64]
-  - url: https://github.com/denoland/deno/releases/download/v{{ version }}/deno-aarch64-apple-darwin.zip  # [osx and arm64]
-    sha256: 912f13ba486a55ba3e235bc91fddfd51e95a45598972ce026d34f206117cb14c  # [osx and arm64]
-    folder: release-build  # [osx and arm64]
+  url: https://github.com/denoland/deno/releases/download/v{{ version }}/deno-x86_64-unknown-linux-gnu.zip  # [linux and x86_64]
+  sha256: 6f9d8115bb3df582c0c5674507e906323b680be0f0b15e735d0cd5ec6be44444  # [linux and x86_64]
+  url: https://github.com/denoland/deno/releases/download/v{{ version }}/deno-aarch64-unknown-linux-gnu.zip  # [linux and aarch64]
+  sha256: 4e3e86739fe527c6891dbfa73799a5ec1b11f45898aaebf73bf3247c2e6a53dd  # [linux and aarch64]
+  url: https://github.com/denoland/deno/releases/download/v{{ version }}/deno-x86_64-apple-darwin.zip  # [osx and x86_64]
+  sha256: cd46e3d5c06fbd21ef12742def67cc12ef83a2f99d44e00419615f99de056574  # [osx and x86_64]
+  url: https://github.com/denoland/deno/releases/download/v{{ version }}/deno-aarch64-apple-darwin.zip  # [osx and arm64]
+  sha256: d21374dc6aa02b493467ec2f6d865cab95cffebb89aab242dc1acf95274681ee  # [osx and arm64]
+  url: https://github.com/denoland/deno/releases/download/v{{ version }}/deno-x86_64-pc-windows-msvc.zip  # [win]
+  sha256: 9d89dd28951e4176a8c7643dc98401757e1ff0f83585f25921496195b3669c08  # [win]
 
 build:
   number: 0
+  binary_relocation: false  # [osx]
 
 requirements:
   build:
-    - {{ compiler("rust") }}
-    # needs c compiler for run_exports
-    - {{ compiler("c") }}   # [not osx or not arm64]
-    - {{ stdlib("c") }}     # [not osx or not arm64]
-    - cmake    # [win]
-    # for some reason, test_ffi pkg needs lld on osx-arm64
-    # - lld    # [osx and arm64]
-    - cargo-bundle-licenses
-    - make   # [unix and not arm64]
-    - cmake  # [unix and not arm64]  
-    - libclang     # [linux and x86_64]
-    - llvmdev      # [linux and x86_64]
-    # libprotobuf is on build, not host, since we only need protoc
-    - libprotobuf
-  # cross-builds also need host libgcc to run the cross-built files
-  host:
-    - libgcc    # [linux and aarch64]
-    - zlib  # [not aarch64]
-  run:   # [osx and x86_64]
+    - {{ stdlib("c") }}  # [linux]
 
 test:
   files:
@@ -47,7 +30,7 @@ test:
   commands:
     - deno --help
     - deno run https://docs.deno.com/examples/scripts/hello_world.ts
-    - if [ "$DENO_INSTALL_ROOT" != "$PREFIX" ]; then echo "DENO_INTALL_ROOT var not set correctly" && exit 1; fi    # [unix]
+    - if [ "$DENO_INSTALL_ROOT" != "$PREFIX" ]; then echo "DENO_INSTALL_ROOT var not set correctly" && exit 1; fi    # [unix]
     - IF "%DENO_INSTALL_ROOT:/=\%" NEQ "%PREFIX:/=\%\Library" exit 1    # [win]
     - deno run test-build-arch.js
 
@@ -55,9 +38,7 @@ about:
   home: https://deno.land
   license: MIT
   license_family: MIT
-  license_file:
-    - LICENSE.md
-    - DENO_THIRDPARTY_LICENSES.yml
+  license_file: LICENSE.md
   summary: A simple, modern and secure runtime for JavaScript and TypeScript that uses V8 and is built in Rust
   doc_url: https://deno.land/manual
   dev_url: https://github.com/denoland/deno

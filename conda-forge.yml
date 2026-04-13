@@ -14,4 +14,4 @@ github:
   branch_name: main
   tooling_branch_name: main
 idle_timeout_minutes: 60
-test: native_and_emulated
+test: native
