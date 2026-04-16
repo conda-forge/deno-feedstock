@@ -3,7 +3,7 @@ About deno-feedstock
 
 Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/deno-feedstock/blob/main/LICENSE.txt)
 
-Home: https://deno.land
+Home: https://deno.land/
 
 Package license: MIT
 
@@ -196,6 +196,7 @@ Feedstock Maintainers
 
 * [@cderv](https://github.com/cderv/)
 * [@cscheid](https://github.com/cscheid/)
+* [@danielnachun](https://github.com/danielnachun/)
 * [@dragonstyle](https://github.com/dragonstyle/)
 * [@mdekstrand](https://github.com/mdekstrand/)
 * [@msarahan](https://github.com/msarahan/)
