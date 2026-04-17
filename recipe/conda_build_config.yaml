@@ -1,7 +1,9 @@
 c_compiler:
-  - clang
+  - clang              # [unix]
+  - clang-cl           # [win]
 cxx_compiler:
-  - clangxx
+  - clangxx            # [win]
+  - clang-cl           # [win]
 c_compiler_version:
   - 19
 cxx_compiler_version:
