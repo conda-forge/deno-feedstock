@@ -6,3 +6,5 @@ c_compiler_version:
   - 19
 cxx_compiler_version:
   - 19
+c_stdlib_version:      # [linux]
+  - 2.28               # [linux]
