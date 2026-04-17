@@ -29,7 +29,8 @@ requirements:
     - make
     - pkg-config
   host:
-    - zlib
+    - if: osx
+      then: zlib
 
 tests:
   - files:
