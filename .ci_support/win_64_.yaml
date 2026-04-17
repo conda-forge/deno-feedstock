@@ -1,5 +1,5 @@
 c_compiler:
-- clang
+- clang-cl
 c_compiler_version:
 - '19'
 c_stdlib:
@@ -12,5 +12,3 @@ rust_compiler:
 - rust
 target_platform:
 - win-64
-zlib:
-- '1'
