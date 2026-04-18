@@ -4,6 +4,7 @@
 set CARGO_PROFILE_RELEASE_STRIP=symbols
 set CARGO_PROFILE_RELEASE_LTO=fat
 set CMAKE_POLICY_VERSION_MINIMUM=3.5
+set RUSTFLAGS=-C target-feature=-crt-static
 
 :: check licenses
 cargo-bundle-licenses --format yaml --output THIRDPARTY.yml || goto :error
