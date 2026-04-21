@@ -1,18 +1,14 @@
 c_compiler:
-- vs2019
+- clang-cl
+c_compiler_version:
+- '19'
 c_stdlib:
 - vs
 channel_sources:
 - conda-forge
 channel_targets:
 - conda-forge main
-libprotobuf:
-- 5.29.3
 rust_compiler:
 - rust
-rust_compiler_version:
-- 1.85.1
 target_platform:
 - win-64
-zlib:
-- '1'

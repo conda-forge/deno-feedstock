@@ -1,0 +1,58 @@
+schema_version: 1
+
+context:
+  version: "2.4.5"
+
+package:
+  name: deno
+  version: ${{ version }}
+
+source:
+  url: https://github.com/denoland/deno/releases/download/v${{ version }}/deno_src.tar.gz
+  sha256: a6bba626d08813c114bfcc862e69fd7202eecda97df9f349abf6cc4e38fe4e40
+
+build:
+  number: 0
+
+requirements:
+  build:
+    - ${{ compiler("rust") }}
+    - ${{ compiler("c") }}
+    - ${{ stdlib("c") }}
+    - libclang
+    - lld
+    - cargo-bundle-licenses
+    - ninja
+    - cmake
+    - make
+    - pkg-config
+  host:
+    - if: osx
+      then: zlib
+
+tests:
+  - script:
+    - deno --help
+    - deno run https://docs.deno.com/examples/scripts/hello_world.ts
+    - if: unix
+      then: if [ "$DENO_INSTALL_ROOT" != "$PREFIX" ]; then echo "DENO_INSTALL_ROOT var not set correctly" && exit 1; fi
+      else: IF "%DENO_INSTALL_ROOT:/=\%" NEQ "%PREFIX:/=\%\Library" exit 1
+
+about:
+  license: MIT
+  license_file:
+    - LICENSE.md
+    - THIRDPARTY.yml
+  summary: A simple, modern and secure runtime for JavaScript and TypeScript that uses V8 and is built in Rust
+  homepage: https://deno.land
+  repository: https://github.com/denoland/deno
+  documentation: https://deno.land/manual
+
+extra:
+  recipe-maintainers:
+    - danielnachun
+    - mdekstrand
+    - cderv
+    - cscheid
+    - dragonstyle
+    - msarahan
