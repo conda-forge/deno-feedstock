@@ -1,16 +1,15 @@
 @echo on
 @setlocal EnableDelayedExpansion
 
-set CARGO_PROFILE_RELEASE_STRIP=symbols
-set CARGO_PROFILE_RELEASE_LTO=fat
 set CMAKE_POLICY_VERSION_MINIMUM=3.5
 set RUSTFLAGS=-C target-feature=-crt-static
 
 :: check licenses
 cargo-bundle-licenses --format yaml --output THIRDPARTY.yml || goto :error
 
-:: build
-cargo install --no-default-features --bins --no-track --locked --root "%LIBRARY_PREFIX%" --path .\cli || goto :error
+:: build with Deno's upstream release-lite profile (thin LTO, codegen-units=128)
+:: to avoid rustc-LLVM OOM during final link on hosted Windows runners.
+cargo install --profile release-lite --no-default-features --bins --no-track --locked --root "%LIBRARY_PREFIX%" --path .\cli || goto :error
 
 mkdir %PREFIX:/=\%\etc\conda\activate.d
 echo SET "DENO_INSTALL_ROOT=%LIBRARY_PREFIX:/=\%" > "%PREFIX:/=\%\etc\conda\activate.d\deno.bat"
