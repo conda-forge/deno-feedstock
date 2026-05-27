@@ -1,7 +1,7 @@
 schema_version: 1
 
 context:
-  version: "2.7.14"
+  version: "2.8.1"
 
 package:
   name: deno
@@ -9,7 +9,7 @@ package:
 
 source:
   url: https://github.com/denoland/deno/releases/download/v${{ version }}/deno_src.tar.gz
-  sha256: 617bc7247da4c8b031e3f155e10bfcb085ddd8f51625a73318dfd02fa5e939d0
+  sha256: 062d821f7d8bdb6ccbc79a5b1625b2a3f3378f187fc78018a77eada32d5fcd6c
 
 build:
   number: 0
